@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { Col, Container, Row, Button, Media } from "react-bootstrap";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
+import AOS from 'aos';
 import logo from "../../img/logo.png";
 import logo01 from "../../img/logo01.png";
 import logo02 from "../../img/logo02.png";
@@ -10,9 +12,14 @@ import videoplch from "../../img/video-plch.png";
 import coming_soon from "../../img/coming_soon.png";
 import proxy from "../../img/proxy.png";
 import Quest from "../other/Quest";
-import Footer from "../Template/Footer";
 
 export default function Home(props) {
+    useEffect(() => {
+        AOS.init({
+            duration: 500
+        });
+    }, []);
+
     return (
         <>
             <section id="home-nav">
@@ -91,10 +98,10 @@ export default function Home(props) {
                     </Row>
                 </Container>
             </section>
-            <section id="first-block" className="pr-ypad">
+            <section id="first-block" className="pr-ypad" >
                 <Container>
                     <Row>
-                        <Col sm={5}>
+                        <Col sm={5} data-aos='fade-right'>
                             <div className="logo">
                                 <img src={logo} alt="" />
                             </div>
@@ -107,7 +114,7 @@ export default function Home(props) {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col sm={7}>
+                        <Col sm={7} data-aos='fade-left'>
                             <div id="main-info">
                                 <div className="title h2 stroke">Garson AIO</div>
                                 <div className="description"><span>Powerful</span> checkout automation software.</div>
@@ -134,14 +141,14 @@ export default function Home(props) {
             </section>
             <section id="we_supported" className="dark-bgr">
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2 stroke">we supported</h2>
                         <div className="number stroke">01</div>
                     </div>
                     <Row>
-                        <Col sm="auto">
+                        <Col sm="auto" data-aos='fade-right'>
                             <div className="partners">
-                                <div className="partner">
+                                <div className="partner animate__animated animate__bounce">
                                     <img src={logo01} alt="" />
                                 </div>
                                 <div className="partner">
@@ -155,7 +162,7 @@ export default function Home(props) {
                                 </div>
                             </div>
                         </Col>
-                        <Col sm className="bgr2">
+                        <Col sm className="bgr2" data-aos='fade-left'>
                             <h3>A true all in-one.</h3>
                             <p>When we say AIO, we mean it. Garson AIO is locked and loaded to destroy releases on nearly all major retailers. Some of these retailers include:</p>
                             <ul className="pr-ul">
@@ -172,47 +179,47 @@ export default function Home(props) {
             </section>
             <section id="features" className="pr-ypad">
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2">Features</h2>
                         <div className="number">02</div>
                     </div>
                     <Row className="align-items-stretch">
-                        <Col sm={4}>
+                        <Col sm={4} data-aos="flip-up">
                             <div className="feature">
                                 <img src={feature} alt="" />
                                 <div className="title">Shopify Bypass</div>
                                 <p>Wrath AIO offers both bot protection and queue bypass.</p>
                             </div>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={4} data-aos="flip-up">
                             <div className="feature">
                                 <img src={feature} alt="" />
                                 <div className="title">Multi-Task Support</div>
                                 <p>Run hundreds of tasks without the fear of not being able to handle them.</p>
                             </div>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={4} data-aos="flip-up">
                             <div className="feature">
                                 <img src={feature} alt="" />
                                 <div className="title">User-Friendly Interface</div>
                                 <p>A simple and intuitive user interface that can be used by anyone.</p>
                             </div>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={4} data-aos="flip-up">
                             <div className="feature">
                                 <img src={feature} alt="" />
                                 <div className="title">Multiple Checkout Modes</div>
                                 <p>Checkout in milliseconds while bypassing Supreme's bot protection.</p>
                             </div>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={4} data-aos="flip-up">
                             <div className="feature">
                                 <img src={feature} alt="" />
                                 <div className="title">Analytics</div>
                                 <p>View previous orders and track your spending by months.</p>
                             </div>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={4} data-aos="flip-up">
                             <div className="feature">
                                 <img src={feature} alt="" />
                                 <div className="title">Captcha Harvester</div>
@@ -224,21 +231,21 @@ export default function Home(props) {
             </section>
             <section id="how_it_works" className="dark-bgr">
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2 stroke">HOW IT WORKS</h2>
                         <div className="number stroke">03</div>
                     </div>
-                    <img src={videoplch} alt="" />
+                    <img src={videoplch} alt="" data-aos='fade-up'/>
                 </Container>
             </section>
-            <section id="pricing" className="pr-ypad">
+            <section id="pricing" className="pr-ypad" >
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2 stroke">pricing</h2>
                         <div className="number stroke">04</div>
                     </div>
                     <Row className="justify-content-center">
-                        <Col sm={6}>
+                        <Col sm={6} data-aos='fade-right' data-aos="zoom-in">
                             <div className="price">
                                 <div className="title">License</div>
                                 <div className="bgr">
@@ -252,7 +259,7 @@ export default function Home(props) {
                                 </div>
                             </div>
                         </Col>
-                        <Col sm={6}>
+                        <Col sm={6} data-aos="zoom-in">
                             <div className="price">
                                 <div className="title">Renewal</div>
                                 <div className="bgr">
@@ -265,7 +272,7 @@ export default function Home(props) {
                                 </div>
                             </div>
                         </Col>
-                        <Col sm={6}>
+                        <Col sm={6} data-aos="zoom-in">
                             <div className="price price-bgr">
                                 <div className="title">One purchase</div>
                                 <div className="bgr">
@@ -283,26 +290,26 @@ export default function Home(props) {
             </section>
             <section id="faq" className="dark-bgr">
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2 stroke">FAQ</h2>
                         <div className="number stroke">05</div>
                     </div>
-                    <Quest />
-                    <Quest />
-                    <Quest />
-                    <Quest />
-                    <Quest />
+                    <Quest aos='fade-right' />
+                    <Quest aos='fade-left' />
+                    <Quest aos='fade-right' />
+                    <Quest aos='fade-left' />
+                    <Quest aos='fade-right' />
                 </Container>
             </section>
             <section id="our_market" className="pr-ypad">
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2 stroke">our market</h2>
                         <div className="number stroke">06</div>
                     </div>
                     <Media className="comming-soon">
-                        <img src={coming_soon} alt="" className="mr-5" />
-                        <Media.Body>
+                        <img src={coming_soon} alt="" className="mr-5" data-aos="fade-right"/>
+                        <Media.Body data-aos="fade-left">
                             <div>Market coming soon . . .</div>
                         </Media.Body>
                     </Media>
@@ -310,28 +317,28 @@ export default function Home(props) {
             </section>
             <section id="our_proxy" className="dark-bgr">
                 <Container>
-                    <div className="section-title">
+                    <div className="section-title" data-aos="fade-up">
                         <h2 className="h2 stroke">our proxy</h2>
                         <div className="number stroke">07</div>
                     </div>
                     <Row>
-                        <Col sm={6}>
+                        <Col sm={6} data-aos="fade-right">
                             <h3>Title about our proxy</h3>
                             <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.</p>
                         </Col>
-                        <Col sm={6}>
+                        <Col sm={6} data-aos="fade-left">
                             <img src={proxy} alt="" />
                         </Col>
                     </Row>
                     <Media className="comming-soon">
-                        <img src={coming_soon} alt="" className="mr-5" />
-                        <Media.Body>
+                        <img src={coming_soon} alt="" className="mr-5" data-aos="fade-right"/>
+                        <Media.Body data-aos="fade-left">
                             <div>Proxy Coming soon . . .</div>
                         </Media.Body>
                     </Media>
                 </Container>
             </section>
-            <Footer />
+            
         </>
     )
 }

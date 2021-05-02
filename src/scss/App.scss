@@ -8,6 +8,8 @@ $border-radius-lg: 2rem;
 
 // import
 @import "~bootstrap/scss/bootstrap";
+@import "~aos/dist/aos.css";
+@import "~animate.css/animate.css";
 @import "icomoon/style.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Rubik:wght@300;400;500;700;900&display=swap");
@@ -330,7 +332,7 @@ $ul-colors: #ff2817, #39df88, #f8ca39, #2f99c7, #818cb8;
     transition: 0.5s;
   }
   .q-body {
-    max-height: 0;
+    // max-height: 0;
     overflow: hidden;
     transition: 0.5s;
     font-size: 14px;
@@ -338,14 +340,14 @@ $ul-colors: #ff2817, #39df88, #f8ca39, #2f99c7, #818cb8;
       padding-top: 1rem;
     }
   }
-  &.active {
+  &.open {
     box-shadow: 0rem 0rem 100px 0 #2f99c778 inset;
     .icon {
-      transform: rotateX(180deg);
+      // transform: rotateX(180deg);
       display: inline-block;
     }
     .q-body {
-      max-height: 1000px;
+      // max-height: 1000px;
     }
   }
 }
