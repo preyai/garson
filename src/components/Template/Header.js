@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Login from "../other/Login";
 
 export default function Header(props) {
-    const [modalShow, setModalShow] = useState(true);
+    const [modalShow, setModalShow] = useState(false);
     return (
         <header>
             <Container>

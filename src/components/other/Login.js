@@ -21,10 +21,10 @@ export default function Login(props) {
 
                 <Form>
                     <Form.Group>
-                        <Form.Control type="text" value={username} onChange={((value) => console.log(value))} placeholder="username" />
+                        <Form.Control type="text" value={username} onChange={((value) => setUsername(value))} placeholder="username" />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control type="text" value={password} placeholder="password" />
+                        <Form.Control type="text" value={password} onChange={((value) => setPassword(value))} placeholder="password" />
                     </Form.Group>
                 </Form>
 

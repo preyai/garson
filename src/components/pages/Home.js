@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Col, Container, Row, Button, Media } from "react-bootstrap";
 import { Link } from "react-scroll";
 import AOS from 'aos';
+import Page from "../Template/Page";
 import logo from "../../img/logo.png";
 import logo01 from "../../img/logo01.png";
 import logo02 from "../../img/logo02.png";
@@ -21,7 +22,7 @@ export default function Home(props) {
     }, []);
 
     return (
-        <>
+        <Page>
             <section id="home-nav">
                 <Container >
                     <Row className="home-nav">
@@ -245,7 +246,7 @@ export default function Home(props) {
                         <div className="number stroke">04</div>
                     </div>
                     <Row className="justify-content-center">
-                        <Col sm={6} data-aos='fade-right' data-aos="zoom-in">
+                        <Col sm={6} data-aos='fade-right' >
                             <div className="price">
                                 <div className="title">License</div>
                                 <div className="bgr">
@@ -339,6 +340,6 @@ export default function Home(props) {
                 </Container>
             </section>
             
-        </>
+        </Page>
     )
 }
