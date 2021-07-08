@@ -5,10 +5,12 @@ export default function Login(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    
+
     return (
         <Modal
             {...props}
-            size="sm"
+            size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
@@ -30,7 +32,7 @@ export default function Login(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button variant="secondary" size="lg">Login</Button>
             </Modal.Footer>
         </Modal>
     );

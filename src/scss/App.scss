@@ -37,6 +37,9 @@ p {
 
 a {
   color: #fff;
+  :hover {
+    color: #fff;
+  }
 }
 
 img {
@@ -47,7 +50,9 @@ header {
   background-color: transparentize($color: #000000, $amount: 0.9);
   text-align: center;
   padding: 30px;
-  a {
+  button {
+    background: none;
+    border: none;
     font-size: 14px;
     font-weight: 500;
     color: #818cb8;
@@ -866,5 +871,78 @@ $ul-colors: #ff2817, #39df88, #f8ca39, #2f99c7, #818cb8;
 footer {
   a {
     color: #818cb8;
+  }
+}
+
+.modal-content {
+  background-color: #222e4d;
+  .close {
+    color: #fff;
+    font-weight: 100;
+    font-size: 4rem;
+  }
+  label.form-label {
+    font-size: 16px;
+    font-weight: 400;
+    color: #818cb8;
+    letter-spacing: 1.2px;
+    span {
+      color: #fff;
+    }
+  }
+  input.form-control {
+    background-color: #1b243c;
+    border-color: #1b243c;
+    border-radius: 2rem;
+    padding: 2rem;
+    color: #fff;
+  }
+}
+.modal-header,
+.modal-footer,
+.modal-body {
+  border-color: #222e4d;
+  padding: 1rem 3rem;
+}
+.modal-header{
+  align-items: center;
+}
+.modal-title {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 600;
+  text-transform: uppercase;
+  span {
+    -webkit-text-stroke: 1px #818cb8;
+    color: transparent;
+  }
+}
+.big-form-btn {
+  background-color: #2a375b;
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  border-radius: 2rem;
+  text-align: left;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1.35px;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  .bfb-first {
+    font-weight: 300;
+    color: #818cb8;
+  }
+  &.active {
+    background-image: url(/img/price.jpg);
+    .bfb-first {
+      color: #fff;
+    }
   }
 }
