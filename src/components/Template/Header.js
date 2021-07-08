@@ -10,10 +10,10 @@ export default function Header(props) {
                 <Row className="justify-content-center">
                     <Col sm="2">
 
-                        <a href="/account"><span className="icon icon-profile"></span>login</a>
+                        <a href="/"><span className="icon icon-profile"></span>login</a>
                     </Col>
                     <Col sm="2">
-                        <a href="/account"><span className="icon icon-key"></span>Activate</a>
+                        <a href="/"><span className="icon icon-key"></span>Activate</a>
                     </Col>
                 </Row>
             </Container>

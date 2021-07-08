@@ -61,8 +61,12 @@ export default function Footer(props) {
                 <Container>
                     <div className="d-flex align-items-center justify-content-between py-4">
                         <div>© All Rights Reserved</div>
-                        <div>User agreement</div>
+                        <a href="/offer">Offer</a>
+                        <a href="/terms">Terms and Conditions</a>
+                        <a href="/privacy_policies" alt="">User agreement</a>
+                        <a href="https://my.cloudpayments.ru/ru/unsubscribe">Unsubscribe</a>
                     </div>
+                    <div className="d-flex align-items-center justify-content-between py-2"><div style={{fontSize: '75%'}}>IP Kopylov A.E.</div><div style={{fontSize: '75%'}}>INN 771003857215</div><div style={{fontSize: '75%'}}>Email Contactgarsonaio@gmail.com</div></div>
                 </Container>
             </div>
         </footer>

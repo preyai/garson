@@ -13,6 +13,10 @@ import videoplch from "../../img/video-plch.png";
 import coming_soon from "../../img/coming_soon.png";
 import proxy from "../../img/proxy.png";
 import Quest from "../other/Quest";
+import tenor from "../../img/tenor.gif";
+import tenor1 from "../../img/tenor-1.gif";
+import tenor3 from "../../img/tenor-3.gif";
+import tenor4 from "../../img/tenor-4.gif";
 
 export default function Home(props) {
     useEffect(() => {
@@ -185,46 +189,32 @@ export default function Home(props) {
                         <div className="number">02</div>
                     </div>
                     <Row className="align-items-stretch">
-                        <Col sm={4} data-aos="flip-up">
+                    <Col sm={4} data-aos="flip-up">
                             <div className="feature">
-                                <img src={feature} alt="" />
-                                <div className="title">Shopify Bypass</div>
-                                <p>Wrath AIO offers both bot protection and queue bypass.</p>
+                                <img src={tenor} alt="" />
+                                <div className="title">Customer Service</div>
+                                <p>Got any questions? Our support agent is always there to help you. You can DM us in twitter or write an E-mail</p>
                             </div>
                         </Col>
                         <Col sm={4} data-aos="flip-up">
                             <div className="feature">
-                                <img src={feature} alt="" />
-                                <div className="title">Multi-Task Support</div>
-                                <p>Run hundreds of tasks without the fear of not being able to handle them.</p>
-                            </div>
-                        </Col>
-                        <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={feature} alt="" />
-                                <div className="title">User-Friendly Interface</div>
-                                <p>A simple and intuitive user interface that can be used by anyone.</p>
-                            </div>
-                        </Col>
-                        <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={feature} alt="" />
-                                <div className="title">Multiple Checkout Modes</div>
-                                <p>Checkout in milliseconds while bypassing Supreme's bot protection.</p>
-                            </div>
-                        </Col>
-                        <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={feature} alt="" />
+                                <img src={tenor1} alt="" />
                                 <div className="title">Analytics</div>
-                                <p>View previous orders and track your spending by months.</p>
+                                <p>Personalized analytics of your order history lets you track your purchases, profit and success rate</p>
                             </div>
                         </Col>
                         <Col sm={4} data-aos="flip-up">
                             <div className="feature">
-                                <img src={feature} alt="" />
-                                <div className="title">Captcha Harvester</div>
-                                <p>A captcha system that allocates captchas in the most efficient way possible.</p>
+                                <img src={tenor3} alt="" />
+                                <div className="title">User-Friendly Interface</div>
+                                <p>We value your time and energy, making sure your experience using our bot is as smooth and straightforward as possible</p>
+                            </div>
+                        </Col>
+                        <Col sm={4} data-aos="flip-up">
+                            <div className="feature">
+                                <img src={tenor4} alt="" />
+                                <div className="title">Multi-task support</div>
+                                <p>Top-notch computing power ensures that you’re able to run hundreds of tasks simultaneously with the confidence of success in all of them</p>
                             </div>
                         </Col>
                     </Row>
@@ -295,11 +285,11 @@ export default function Home(props) {
                         <h2 className="h2 stroke">FAQ</h2>
                         <div className="number stroke">05</div>
                     </div>
-                    <Quest aos='fade-right' />
-                    <Quest aos='fade-left' />
-                    <Quest aos='fade-right' />
-                    <Quest aos='fade-left' />
-                    <Quest aos='fade-right' />
+                    <Quest aos='fade-right' quest_text='How do I get access to the bot?' answer_text='You need to catch a key in any of our social networks. You can find it in our tweeter, instagram, tiktok or youtube, so stay tuned.' />
+                    <Quest aos='fade-left' quest_text='How many slots do you offer?' answer_text='We have exactly 288 places, after all of them are taken there are no more to be added, so make sure to grab one while you can.' />
+                    <Quest aos='fade-right' quest_text='Which platforms are compatible with your product?' answer_text='Right now Garson AIO is available only on Windows, while we are working as hard as we can to add Mac and iPhone/Android to our list of products.' />
+                    <Quest aos='fade-left' quest_text='Is there a list of countries you support?' answer_text='One of our main goals is to provide our service globally, therefore our bot is available all over the world no matter where you are from.' />
+                    <Quest aos='fade-right' quest_text='Is there a user dashboard?' answer_text='Yes! We provide an online user dashboard in your site account.' />
                 </Container>
             </section>
             <section id="our_market" className="pr-ypad">
