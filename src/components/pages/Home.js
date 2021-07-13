@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Row, Button, Media } from "react-bootstrap";
 import { Link } from "react-scroll";
 import AOS from 'aos';
@@ -8,21 +8,37 @@ import logo01 from "../../img/logo01.png";
 import logo02 from "../../img/logo02.png";
 import logo03 from "../../img/logo03.png";
 import logo04 from "../../img/logo04.png";
-import feature from "../../img/feature.png";
+// import feature from "../../img/feature.png";
 import videoplch from "../../img/video-plch.png";
 import coming_soon from "../../img/coming_soon.png";
 import proxy from "../../img/proxy.png";
 import Quest from "../other/Quest";
-import tenor from "../../img/tenor.gif";
-import tenor1 from "../../img/tenor-1.gif";
-import tenor3 from "../../img/tenor-3.gif";
-import tenor4 from "../../img/tenor-4.gif";
 
 export default function Home(props) {
+
+    const host = 'http://backend.garsonaio.com/';
+    const [features, setFeatures] = useState([]);
+    const [faq, setFaq] = useState([]);
+
     useEffect(() => {
         AOS.init({
             duration: 500
         });
+
+        fetch(host + 'features')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setFeatures(data.data);
+            });
+        fetch(host + 'faq')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setFaq(data.data);
+            });
     }, []);
 
     return (
@@ -188,35 +204,19 @@ export default function Home(props) {
                         <h2 className="h2">Features</h2>
                         <div className="number">02</div>
                     </div>
+
                     <Row className="align-items-stretch">
-                    <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={tenor} alt="" />
-                                <div className="title">Customer Service</div>
-                                <p>Got any questions? Our support agent is always there to help you. You can DM us in twitter or write an E-mail</p>
-                            </div>
-                        </Col>
-                        <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={tenor1} alt="" />
-                                <div className="title">Analytics</div>
-                                <p>Personalized analytics of your order history lets you track your purchases, profit and success rate</p>
-                            </div>
-                        </Col>
-                        <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={tenor3} alt="" />
-                                <div className="title">User-Friendly Interface</div>
-                                <p>We value your time and energy, making sure your experience using our bot is as smooth and straightforward as possible</p>
-                            </div>
-                        </Col>
-                        <Col sm={4} data-aos="flip-up">
-                            <div className="feature">
-                                <img src={tenor4} alt="" />
-                                <div className="title">Multi-task support</div>
-                                <p>Top-notch computing power ensures that you’re able to run hundreds of tasks simultaneously with the confidence of success in all of them</p>
-                            </div>
-                        </Col>
+                        {features.map((item) => (
+                            <Col sm={4} data-aos="flip-up" key={item._id}>
+                                <div className="feature">
+                                    <img src={item.img} alt="" />
+                                    <div className="title">{item.title}</div>
+                                    <p>{item.text}</p>
+                                </div>
+                            </Col>
+                        ))}
+
+
                     </Row>
                 </Container>
             </section>
@@ -226,7 +226,7 @@ export default function Home(props) {
                         <h2 className="h2 stroke">HOW IT WORKS</h2>
                         <div className="number stroke">03</div>
                     </div>
-                    <img src={videoplch} alt="" data-aos='fade-up'/>
+                    <img src={videoplch} alt="" data-aos='fade-up' />
                 </Container>
             </section>
             <section id="pricing" className="pr-ypad" >
@@ -285,11 +285,9 @@ export default function Home(props) {
                         <h2 className="h2 stroke">FAQ</h2>
                         <div className="number stroke">05</div>
                     </div>
-                    <Quest aos='fade-right' quest_text='How do I get access to the bot?' answer_text='You need to catch a key in any of our social networks. You can find it in our tweeter, instagram, tiktok or youtube, so stay tuned.' />
-                    <Quest aos='fade-left' quest_text='How many slots do you offer?' answer_text='We have exactly 288 places, after all of them are taken there are no more to be added, so make sure to grab one while you can.' />
-                    <Quest aos='fade-right' quest_text='Which platforms are compatible with your product?' answer_text='Right now Garson AIO is available only on Windows, while we are working as hard as we can to add Mac and iPhone/Android to our list of products.' />
-                    <Quest aos='fade-left' quest_text='Is there a list of countries you support?' answer_text='One of our main goals is to provide our service globally, therefore our bot is available all over the world no matter where you are from.' />
-                    <Quest aos='fade-right' quest_text='Is there a user dashboard?' answer_text='Yes! We provide an online user dashboard in your site account.' />
+                    {faq.map((item, index) => (
+                        <Quest aos={(index % 2 === 0) ? 'fade-right' : 'fade-left'} quest_text={item.quest} answer_text={item.answer} />
+                    ))}
                 </Container>
             </section>
             <section id="our_market" className="pr-ypad">
@@ -299,7 +297,7 @@ export default function Home(props) {
                         <div className="number stroke">06</div>
                     </div>
                     <Media className="comming-soon">
-                        <img src={coming_soon} alt="" className="mr-5" data-aos="fade-right"/>
+                        <img src={coming_soon} alt="" className="mr-5" data-aos="fade-right" />
                         <Media.Body data-aos="fade-left">
                             <div>Market coming soon . . .</div>
                         </Media.Body>
@@ -322,14 +320,14 @@ export default function Home(props) {
                         </Col>
                     </Row>
                     <Media className="comming-soon">
-                        <img src={coming_soon} alt="" className="mr-5" data-aos="fade-right"/>
+                        <img src={coming_soon} alt="" className="mr-5" data-aos="fade-right" />
                         <Media.Body data-aos="fade-left">
                             <div>Proxy Coming soon . . .</div>
                         </Media.Body>
                     </Media>
                 </Container>
             </section>
-            
+
         </Page>
     )
 }

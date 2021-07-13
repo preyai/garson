@@ -2,7 +2,6 @@ import './scss/App.scss';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Account from './components/pages/Account';
-import Test from './components/pages/Test';
 import PrivacyPolicies from './components/pages/PrivacyPolicies';
 import Terms from './components/pages/Terms';
 import Ofert from './components/pages/Ofert';
