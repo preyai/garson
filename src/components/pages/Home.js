@@ -13,12 +13,15 @@ import videoplch from "../../img/video-plch.png";
 import coming_soon from "../../img/coming_soon.png";
 import proxy from "../../img/proxy.png";
 import Quest from "../other/Quest";
+import PayForm from "../other/PayForm";
 
 export default function Home(props) {
 
     const host = 'http://backend.garsonaio.com/';
     const [features, setFeatures] = useState([]);
     const [faq, setFaq] = useState([]);
+
+    const [payShow, setPayShow] = useState(false);
 
     useEffect(() => {
         AOS.init({
@@ -267,10 +270,11 @@ export default function Home(props) {
                             <div className="price price-bgr">
                                 <div className="title">One purchase</div>
                                 <div className="bgr">
-                                    <div className="time">One Time</div>
-                                    <p>(1 purchase)</p>
-                                    <div className="sum">30</div>
+                                <div className="time">One Time</div>
+                                    <p>(Includes 1 month of free usage)</p>
+                                    <div className="sum">200</div>
                                     <div className="d-flex align-items-center justify-content-center">
+                                        <Button variant="primary" size="lg" className="mx-2" onClick={()=>setPayShow(true)}>Purchase</Button>
                                         <Button variant="primary" size="lg" className="mx-2">Key activation</Button>
                                     </div>
                                 </div>
@@ -327,7 +331,10 @@ export default function Home(props) {
                     </Media>
                 </Container>
             </section>
-
+            <PayForm
+                show={payShow}
+                onHide={() => setPayShow(false)}
+            />
         </Page>
     )
 }

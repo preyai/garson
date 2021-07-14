@@ -5,17 +5,23 @@ import Account from './components/pages/Account';
 import PrivacyPolicies from './components/pages/PrivacyPolicies';
 import Terms from './components/pages/Terms';
 import Ofert from './components/pages/Ofert';
+import SimplePage from './components/pages/SimplePage'
+import { useEffect, useState } from 'react';
 
 function App() {
+
+
+
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/account/" component={Account} />
         <Route exact path="/account/:id" component={Account} />
-        <Route exact path="/privacy_policies" component={PrivacyPolicies} />
+        <Route exact path="/:url" component={SimplePage} />
+        {/* <Route exact path="/privacy_policies" component={PrivacyPolicies} />
         <Route exact path="/terms" component={Terms} />
-        <Route exact path="/offer" component={Ofert} />
+        <Route exact path="/offer" component={Ofert} /> */}
       </Switch>
     </Router>
   );

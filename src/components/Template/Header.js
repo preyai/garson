@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Activation from "../other/Activation";
 import Login from "../other/Login";
+import PayForm from "../other/PayForm";
 
 export default function Header(props) {
     const [activateShow, setActivateShow] = useState(false);
@@ -27,6 +28,7 @@ export default function Header(props) {
                 show={loginShow}
                 onHide={() => setLoginShow(false)}
             />
+            
         </header>
     )
 }

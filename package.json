@@ -2,7 +2,6 @@
   "name": "garson",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://preycreate.xyz/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
@@ -10,7 +9,8 @@
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "bootstrap": "^4.6.0",
-    "node-sass": "^5.0.0",
+    "cloudpayments": "^5.0.4",
+    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-calendar": "^3.4.0",
