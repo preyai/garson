@@ -8,8 +8,7 @@ export default function PrivacyPolicies(props) {
     const [lang, setLang] = useState('en');
     const [data, setData] = useState([]);
     const [load, setLoad] = useState(false);
-    // const host = 'http://localhost:3030/';
-    const host = 'http://backend.garsonaio.com/';
+    const host = process.env.REACT_APP_SERVER_URL;
 
     let { url } = useParams();
 
@@ -25,7 +24,7 @@ export default function PrivacyPolicies(props) {
                 setData(data.data);
                 setLoad(true)
             });
-    }, []);
+    }, [host, url]);
 
     return (
         <Page>

@@ -4,6 +4,7 @@ import ico from "../../img/ico_01.svg";
 import { Button } from "react-bootstrap";
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import logout from "../../img/logout.svg";
+import client from "../../feathersClient";
 
 function Aside(props) {
 
@@ -15,11 +16,11 @@ function Aside(props) {
     ]);
 
     useEffect(() => {
-        // const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-        // fetch(SERVER_URL + '/admin-pages')
-        //     .then(response => response.json())
-        //     .then(result => setPages(result.data))
-        //     .catch(e => console.log(e));
+        const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+        fetch(SERVER_URL + 'admin-pages')
+            .then(response => response.json())
+            .then(result => setPages(result.data))
+            .catch(e => console.log(e));
 
     }, []);
     return (
@@ -34,7 +35,10 @@ function Aside(props) {
             <a href="/" className="mt-auto link" >Back to main page</a>
             <div className="btns">
                 <Button variant="lblue" size="lg"><span className="icon icon-play"></span>View Demo</Button>
-                <Button variant="lblue" size="lg"><img src={logout} alt="" className="mr-2" /> Log out</Button>
+                <Button variant="lblue" size="lg"><img src={logout} alt="" className="mr-2" onClick={() => {
+                    client.logout();
+                    window.location.href = '/';
+                }} /> Log out</Button>
             </div>
         </PerfectScrollbar>
     )

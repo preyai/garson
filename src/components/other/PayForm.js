@@ -5,7 +5,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 export default function PayForm(props) {
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [chek, setChek] = useState(false);
 
     const pay = () => {
         var widget = new window.cp.CloudPayments();
@@ -52,13 +52,13 @@ export default function PayForm(props) {
 
                 <Form>
                     <Form.Group>
-                        <Form.Control type="text" value={username} onChange={((value) => setUsername(value))} placeholder="email" />
+                        <Form.Control type="text" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="email" />
                     </Form.Group>
                     <Form.Group>
                         <Row className="align-items-center">
                             <Col sm="auto">Price</Col>
                             <Col>
-                                <Form.Control className="price-input" type="text" onChange={((value) => setPassword(value))} placeholder="200$" value="200$" disabled />
+                                <Form.Control className="price-input" type="text"  placeholder="200$" value="200$" disabled />
                             </Col>
                         </Row>
                     </Form.Group>
@@ -66,11 +66,20 @@ export default function PayForm(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                <div className="d-flex align-items-center justify-content-between" style={{width:"100%"}}>
-                    <a href="/subscription_agreement">subscription agreement</a>
-                    <Button variant="secondary" size="lg" onClick={() => pay()}>Pay</Button>
+                <div className="d-flex align-items-center justify-content-between" style={{ width: "100%" }}>
+
+                    <div className="d-flex align-items-center" >
+                        <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
+                            <Form.Check type="checkbox" label="agree with " checked={chek} onChange={(event) => setChek(event.target.checked)} />
+                            <a href="/subscription_agreement" className="ml-2"> subscription agreement</a>
+                        </Form.Group>
+
+                    </div>
+                    
+                        <Button variant="secondary" size="lg" onClick={() => pay()} disabled={!chek}>Pay</Button>
+
                 </div>
-                
+
             </Modal.Footer>
         </Modal>
     );

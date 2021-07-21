@@ -9,7 +9,7 @@ import logo02 from "../../img/logo02.png";
 import logo03 from "../../img/logo03.png";
 import logo04 from "../../img/logo04.png";
 // import feature from "../../img/feature.png";
-import videoplch from "../../img/video-plch.png";
+// import videoplch from "../../img/video-plch.png";
 import coming_soon from "../../img/coming_soon.png";
 import proxy from "../../img/proxy.png";
 import Quest from "../other/Quest";
@@ -17,7 +17,7 @@ import PayForm from "../other/PayForm";
 
 export default function Home(props) {
 
-    const host = 'http://backend.garsonaio.com/';
+    const host = process.env.REACT_APP_SERVER_URL;
     const [features, setFeatures] = useState([]);
     const [faq, setFaq] = useState([]);
 
@@ -229,7 +229,8 @@ export default function Home(props) {
                         <h2 className="h2 stroke">HOW IT WORKS</h2>
                         <div className="number stroke">03</div>
                     </div>
-                    <img src={videoplch} alt="" data-aos='fade-up' />
+                    {/* <img src={videoplch} alt="" data-aos='fade-up' /> */}
+                    <iframe width="100%" height="600" src="https://www.youtube.com/embed/pLjK6jTFVU4" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </Container>
             </section>
             <section id="pricing" className="pr-ypad" >

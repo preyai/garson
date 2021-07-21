@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Activation from "../other/Activation";
 import Login from "../other/Login";
-import PayForm from "../other/PayForm";
+import Register from "../other/Register";
 
 export default function Header(props) {
     const [activateShow, setActivateShow] = useState(false);
     const [loginShow, setLoginShow] = useState(false);
+    const [registerShow, setRegisterShow] = useState(false);
     return (
         <header>
             <Container>
@@ -23,12 +24,17 @@ export default function Header(props) {
             <Activation
                 show={activateShow}
                 onHide={() => setActivateShow(false)}
+                showReg={() => setRegisterShow(true)}
             />
             <Login
                 show={loginShow}
                 onHide={() => setLoginShow(false)}
             />
-            
+            <Register
+                show={registerShow}
+                onHide={() => setRegisterShow(false)}
+            />
+
         </header>
     )
 }

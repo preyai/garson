@@ -19,6 +19,7 @@ export default function Quest(props) {
     useEffect(() => {
         setMaxHeight(item.current.clientHeight);
         setStyle({ "maxHeight": (open ? maxHeight : 0) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

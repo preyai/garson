@@ -6,7 +6,7 @@ import client from "../../feathersClient";
 
 
 
-export default function Login(props) {
+export default function Register(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState();
@@ -15,7 +15,7 @@ export default function Login(props) {
 
     }, [])
 
-    const handler = () => {
+    const login = () => {
         const auth = client
             .authenticate({
                 strategy: 'local',
@@ -26,6 +26,17 @@ export default function Login(props) {
         if (auth) {
             window.location.href ='/account';
         }
+    }
+
+    const handler = () => {
+        const auth = client
+            .service('users')
+            .create({
+                email: username,
+                password,
+            })
+            .then(() => login());
+        
     }
 
 
@@ -39,7 +50,7 @@ export default function Login(props) {
         >
             <Modal.Header className="text-center" closeButton>
                 <Modal.Title id="contained-modal-title-vcenter" >
-                    Login
+                    Registration
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -55,8 +66,7 @@ export default function Login(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" size="lg" onClick={() => document.location.href = (process.env.REACT_APP_SERVER_URL + "oauth/discord/")}>Sign in with Discord</Button>
-                <Button variant="secondary" size="lg" onClick={() => handler()}>Sign in</Button>
+                <Button variant="secondary" size="lg" onClick={() => handler()}>Sign up</Button>
             </Modal.Footer>
         </Modal>
     );
