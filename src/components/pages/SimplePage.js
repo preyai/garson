@@ -16,7 +16,7 @@ export default function PrivacyPolicies(props) {
 
     useEffect(() => {
 
-        fetch(host + 'pages?url=' + url)
+        fetch(host + '/pages?url=' + url)
             .then((response) => {
                 return response.json();
             })

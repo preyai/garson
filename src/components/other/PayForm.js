@@ -66,7 +66,7 @@ export default function PayForm(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                <div className="d-flex align-items-center justify-content-between" style={{ width: "100%" }}>
+                <div className="d-flex align-items-center justify-content-between flex-column flex-md-row" style={{ width: "100%" }}>
 
                     <div className="d-flex align-items-center" >
                         <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">

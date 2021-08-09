@@ -20,12 +20,12 @@ export default function Login(props) {
             .authenticate({
                 strategy: 'local',
                 email: username,
-                password,
+                password: password,
+            }).then(() => {
+                window.location.href ='/account';
             })
             .catch(err => setError(err));
-        if (auth) {
-            window.location.href ='/account';
-        }
+
     }
 
 
@@ -55,7 +55,7 @@ export default function Login(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" size="lg" onClick={() => document.location.href = (process.env.REACT_APP_SERVER_URL + "oauth/discord/")}>Sign in with Discord</Button>
+                <Button variant="secondary" size="lg" onClick={() => document.location.href = (process.env.REACT_APP_SERVER_URL + "/oauth/discord/")}>Sign in with Discord</Button>
                 <Button variant="secondary" size="lg" onClick={() => handler()}>Sign in</Button>
             </Modal.Footer>
         </Modal>

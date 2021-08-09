@@ -1,8 +1,42 @@
 
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Col, Row, Button, Alert } from "react-bootstrap";
 import logo from "../../img/logo.png";
 
 export default function Footer(props) {
+    const host = process.env.REACT_APP_SERVER_URL;
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [quest, setQuest] = useState('');
+    const [sended, setSended] = useState(false);
+
+    const handler = () => {
+        const data = {
+            email: email,
+            name: name,
+            quest: quest
+        }
+        console.log(data);
+        fetch(host + '/formqests', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setSended(true);
+                setEmail('');
+                setName('');
+                setQuest('');
+            });
+
+    }
+
     return (
         <footer>
             <div className="contact-form">
@@ -13,18 +47,25 @@ export default function Footer(props) {
                             <h2>Ask the question:</h2>
                             <Row>
                                 <Col sm={8}>
-                                    <input type="text" placeholder="Your name" />
+                                    <input type="text" placeholder="Your name" value={name} onChange={((event) => setName(event.target.value))} />
                                 </Col>
                                 <Col sm={4}>
-                                    <input type="text" placeholder="E-mail" />
+                                    <input type="text" placeholder="E-mail" value={email} onChange={((event) => setEmail(event.target.value))} />
                                 </Col>
                                 <Col sm={8}>
-                                    <input type="text" placeholder="Your question" />
+                                    <input type="text" placeholder="Your question" value={quest} onChange={((event) => setQuest(event.target.value))} />
                                 </Col>
                                 <Col sm={4} className="d-flex">
-                                    <Button variant="lblue" size="lg">submit</Button>
+                                    <Button variant="lblue" size="lg" className="mt-4 mx-auto" onClick={() => handler()}>submit</Button>
                                 </Col>
                                 <Col sm={8}><p>By clicking on the "Submit" button, you accept the terms of the "user agreement”</p></Col>
+                                <Col sm={12}>
+                                    {sended &&
+                                        <Alert variant="success">
+                                            message sent
+                                        </Alert>
+                                    }
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
@@ -67,7 +108,7 @@ export default function Footer(props) {
                         <a href="/subscription_agreement"> subscription agreement</a>
                         <a href="https://my.cloudpayments.ru/ru/unsubscribe">Unsubscribe</a>
                     </div>
-                    <div className="d-flex align-items-center justify-content-between py-2"><div style={{fontSize: '75%'}}>IP Kopylov A.E.</div><div style={{fontSize: '75%'}}>INN 771003857215</div><div style={{fontSize: '75%'}}>Email Contactgarsonaio@gmail.com</div></div>
+                    <div className="d-flex align-items-center justify-content-between py-2"><div style={{ fontSize: '75%' }}>IP Kopylov A.E.</div><div style={{ fontSize: '75%' }}>INN 771003857215</div><div style={{ fontSize: '75%' }}>Email Contactgarsonaio@gmail.com</div></div>
                 </Container>
             </div>
         </footer>

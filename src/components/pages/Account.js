@@ -18,7 +18,7 @@ import Login from "../other/Login";
 
 export default function Account(props) {
     let { id } = useParams();
-    const [login, setLogin] = useState(null);
+    const [login, setLogin] = useState();
     const [discord, setDiscord] = useState(null);
 
     useEffect(() => {
@@ -319,7 +319,7 @@ export default function Account(props) {
             </Cabinet>
         )
     else {
-        return <Login show={true} />;
+        return <Login show={true} onHide={() => window.location.href = '/'}/>;
         // return <div>{login}</div>
     }
 }

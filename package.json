@@ -16,6 +16,7 @@
     "react-bootstrap": "^1.5.2",
     "react-calendar": "^3.4.0",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-perfect-scrollbar": "^1.5.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -27,7 +28,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "push": "scp -r build root@45.141.76.97:/var/www/garsonaio.com/",
+    "publish": "npm run build && npm run push"
   },
   "eslintConfig": {
     "extends": [

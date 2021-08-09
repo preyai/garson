@@ -35,10 +35,10 @@ function Aside(props) {
             <a href="/" className="mt-auto link" >Back to main page</a>
             <div className="btns">
                 <Button variant="lblue" size="lg"><span className="icon icon-play"></span>View Demo</Button>
-                <Button variant="lblue" size="lg"><img src={logout} alt="" className="mr-2" onClick={() => {
+                <Button variant="lblue" size="lg" onClick={() => {
                     client.logout();
                     window.location.href = '/';
-                }} /> Log out</Button>
+                }}><img src={logout} alt="" className="mr-2" /> Log out</Button>
             </div>
         </PerfectScrollbar>
     )

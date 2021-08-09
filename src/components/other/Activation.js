@@ -10,17 +10,17 @@ export default function Activation(props) {
     const host = process.env.REACT_APP_SERVER_URL;
 
     const send = () => {
-        fetch(host + 'access-key?key=' + licensedKey)
+        fetch(host + '/access-key?key=' + licensedKey)
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
                 if (data.total > 0) {
                     if (regType === 'discord') {
-                        fetch(host + 'access-key/' + data.data[0]._id, {
+                        fetch(host + '/access-key/' + data.data[0]._id, {
                             method: 'DELETE'
                         }).then((response) => {
-                            document.location.href = host + "oauth/discord/";
+                            document.location.href = host + "/oauth/discord/";
                         });
                     } else {
                         props.onHide();
@@ -60,7 +60,7 @@ export default function Activation(props) {
                             </Row>
                         </Form.Group>
                         <Row className="mt-5 align-items-lg-stretch">
-                            <Col>
+                            <Col className="mt-4">
                                 <button type="button" className={"big-form-btn " + (regType === 'email' && "active")} onClick={() => setRegType('email')}>
                                     <img src={iconEmail} alt="" />
                                     <div>
@@ -69,8 +69,8 @@ export default function Activation(props) {
                                     </div>
                                 </button>
                             </Col>
-                            <Col>
-                                <button type="button" className={"big-form-btn " + (regType === 'discord' && "active")} onClick={() => setRegType('discord')}>
+                            <Col className="mt-4">
+                                <button type="button" className={"big-form-btn  " + (regType === 'discord' && "active")} onClick={() => setRegType('discord')}>
                                     <img src={iconDiscord} alt="" />
                                     <div>
                                         <div className="bfb-first">Activate</div>
