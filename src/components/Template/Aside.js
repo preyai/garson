@@ -17,7 +17,7 @@ function Aside(props) {
 
     useEffect(() => {
         const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-        fetch(SERVER_URL + 'admin-pages')
+        fetch(SERVER_URL + '/admin-pages')
             .then(response => response.json())
             .then(result => setPages(result.data))
             .catch(e => console.log(e));

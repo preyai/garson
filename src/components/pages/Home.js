@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Col, Container, Row, Button, Media, Modal } from "react-bootstrap";
 import { Link } from "react-scroll";
 import AOS from 'aos';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import Page from "../Template/Page";
 import logo from "../../img/logo.png";
 import coming_soon from "../../img/coming_soon.png";
@@ -94,8 +94,8 @@ export default function Home(props) {
     const host = process.env.REACT_APP_SERVER_URL;
     const [data, setData] = useState({
         h1: "",
-        seo_title:"",
-        seo_description:"",
+        seo_title: "",
+        seo_description: "",
         video: "",
         video_2: "",
         market_title: "",
@@ -136,6 +136,14 @@ export default function Home(props) {
                     let v = data.data[0].video_2.split('/');
                     setVideo(v.pop().replace("watch?v=", ""));
                 }
+                let _meta = meta;
+                if (data.data[0].seo_title) {
+                    _meta['title'] = data.data[0].seo_title;
+                }
+                if (data.data[0].seo_description) {
+                    _meta['description'] = data.data[0].seo_description;
+                }
+                setMeta(_meta);
             });
         fetch(host + '/retailers')
             .then((response) => {
@@ -431,7 +439,7 @@ export default function Home(props) {
             <section id="our_market" className="pr-ypad">
                 <Container>
                     <div className="section-title" data-aos="fade-up">
-                        <h2 className="h2 stroke">our market</h2>
+                        <h2 className="h2 stroke">{data.market_title ? data.market_title : "our market"}</h2>
                         <div className="number stroke">06</div>
                     </div>
                     {data.market_text ?
@@ -456,7 +464,7 @@ export default function Home(props) {
             <section id="our_proxy" className="dark-bgr">
                 <Container>
                     <div className="section-title" data-aos="fade-up">
-                        <h2 className="h2 stroke">our proxy</h2>
+                        <h2 className="h2 stroke">{data.proxy_title ? data.proxy_title : "our proxy"}</h2>
                         <div className="number stroke">07</div>
                     </div>
                     {data.proxy_text ?

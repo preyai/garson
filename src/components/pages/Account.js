@@ -14,12 +14,18 @@ import { useEffect, useState } from "react";
 import AOS from 'aos';
 import client from "../../feathersClient";
 import Login from "../other/Login";
+import moment from "moment";
 
 
 export default function Account(props) {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
     let { id } = useParams();
     const [login, setLogin] = useState();
     const [discord, setDiscord] = useState(null);
+    const [download, setDownload] = useState(null);
+    const [announcements, setAnnouncements] = useState([]);
+    const [changelogs, setChangelogs] = useState([]);
+
 
     useEffect(() => {
         AOS.init({
@@ -54,6 +60,18 @@ export default function Account(props) {
             console.log(loginResult);
         });
 
+        fetch(SERVER_URL + '/download')
+            .then(response => response.json())
+            .then(result => setDownload(result.data[0]))
+            .catch(e => console.log(e));
+        fetch(SERVER_URL + '/announcements')
+            .then(response => response.json())
+            .then(result => setAnnouncements(result.data))
+            .catch(e => console.log(e));
+        fetch(SERVER_URL + '/changelogs')
+            .then(response => response.json())
+            .then(result => setChangelogs(result.data))
+            .catch(e => console.log(e));
     }, []);
 
     if (login === undefined) {
@@ -229,52 +247,22 @@ export default function Account(props) {
                                             <p className="text-center">Welcome to Garson AIO </p>
                                             <p className="text-center">Need help?</p>
                                             <p className="text-center">Visit garson.aio/support to talk with a support member!</p>
-                                            <Button variant="lblue" size="lg" className="mx-auto">Download Garson AIO client</Button>
+                                            <Button variant="lblue" size="lg" className="mx-auto" onClick={() => window.open(download.url, '_blank')}>Download Garson AIO client</Button>
                                         </div>
                                     </div>
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">announcement</div>
                                         <div className="body">
-                                            <div className="anonce">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="date">17/05/2021</div>
-                                                    <div className="title">1.12 is now out!</div>
+                                            {announcements.map((item) => (
+                                                <div className="anonce" key={item._id}>
+                                                    <div className="d-flex align-items-center">
+                                                        <div className="date">{moment(Date.parse(item.createdAt)).format('L')}</div>
+                                                        <div className="title">{item.title}</div>
+                                                    </div>
+                                                    <p>{item.text}</p>
+                                                    <Button variant="outline-secondary">Read about</Button>
                                                 </div>
-                                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                                <Button variant="outline-secondary">Read about</Button>
-                                            </div>
-                                            <div className="anonce">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="date">17/05/2021</div>
-                                                    <div className="title">1.12 is now out!</div>
-                                                </div>
-                                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                                <Button variant="outline-secondary">Read about</Button>
-                                            </div>
-                                            <div className="anonce">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="date">17/05/2021</div>
-                                                    <div className="title">1.12 is now out!</div>
-                                                </div>
-                                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                                <Button variant="outline-secondary">Read about</Button>
-                                            </div>
-                                            <div className="anonce">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="date">17/05/2021</div>
-                                                    <div className="title">1.12 is now out!</div>
-                                                </div>
-                                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                                <Button variant="outline-secondary">Read about</Button>
-                                            </div>
-                                            <div className="anonce">
-                                                <div className="d-flex align-items-center">
-                                                    <div className="date">17/05/2021</div>
-                                                    <div className="title">1.12 is now out!</div>
-                                                </div>
-                                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                                <Button variant="outline-secondary">Read about</Button>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
@@ -284,31 +272,17 @@ export default function Account(props) {
                                 <div className="admin-block" data-aos="fade-left">
                                     <div className="header">Changelog</div>
                                     <div className="body">
-                                        <div className="anonce">
-                                            <div className="d-flex align-items-center">
-                                                <div className="date">17/05/2021</div>
-                                                <div className="title">1.12.02</div>
+                                        {changelogs.map((item) => (
+                                            <div className="anonce" key={item._id}>
+                                                <div className="d-flex align-items-center">
+                                                    <div className="date">{moment(Date.parse(item.createdAt)).format('L')}</div>
+                                                    <div className="title">{item.title}</div>
+                                                </div>
+                                                <p>{item.text}</p>
+                                                <Button variant="outline-secondary">Read about</Button>
                                             </div>
-                                            <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                            <Button variant="outline-secondary">Read about</Button>
-                                        </div>
-                                        <div className="anonce">
-                                            <div className="d-flex align-items-center">
-                                                <div className="date">1.12.01</div>
-                                                <div className="title">1.12 is now out!</div>
-                                            </div>
-                                            <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                            <Button variant="outline-secondary">Read about</Button>
-                                        </div>
-                                        <div className="anonce">
-                                            <div className="d-flex align-items-center">
-                                                <div className="date">1.12.00</div>
-                                                <div className="title">1.12 is now out!</div>
-                                            </div>
-                                            <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</p>
-                                            <Button variant="outline-secondary">Read about</Button>
-                                        </div>
-
+                                        ))}
+                                        
                                     </div>
                                 </div>
                             </PerfectScrollbar>
@@ -319,7 +293,7 @@ export default function Account(props) {
             </Cabinet>
         )
     else {
-        return <Login show={true} onHide={() => window.location.href = '/'}/>;
+        return <Login show={true} onHide={() => window.location.href = '/'} />;
         // return <div>{login}</div>
     }
 }
