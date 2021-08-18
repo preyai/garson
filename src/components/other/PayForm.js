@@ -4,6 +4,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 
 export default function PayForm(props) {
+    const {price, accountId, invoiceId} = props;
     const [username, setUsername] = useState('');
     const [chek, setChek] = useState(false);
 
@@ -13,10 +14,10 @@ export default function PayForm(props) {
             { //options
                 publicId: 'test_api_00000000000000000000001', //id из личного кабинета
                 description: 'Оплата товаров в example.com', //назначение
-                amount: 200, //сумма
+                amount: price, //сумма
                 currency: 'USD', //валюта
-                accountId: 'user@example.com', //идентификатор плательщика (необязательно)
-                invoiceId: '1234567', //номер заказа  (необязательно)
+                accountId: accountId, //идентификатор плательщика (необязательно)
+                invoiceId: invoiceId, //номер заказа  (необязательно)
                 skin: "mini", //дизайн виджета (необязательно)
                 data: {
                     myProp: 'myProp value'
@@ -58,7 +59,7 @@ export default function PayForm(props) {
                         <Row className="align-items-center">
                             <Col sm="auto">Price</Col>
                             <Col>
-                                <Form.Control className="price-input" type="text"  placeholder="200$" value="200$" disabled />
+                                <Form.Control className="price-input" type="text"  placeholder="200$" value={price} disabled />
                             </Col>
                         </Row>
                     </Form.Group>

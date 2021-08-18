@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 // import coming_soon from "../../img/coming_soon.png";
 import Cabinet from "../Template/Cabinet"
@@ -8,23 +8,27 @@ import Transactions from "../other/Transactions"
 import Calendar from 'react-calendar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import tmp00 from '../../img/avatar.png';
-import tmp01 from '../../img/10-layers.svg';
 import plch from '../../img/cs-plch.png';
 import { useEffect, useState } from "react";
 import AOS from 'aos';
 import client from "../../feathersClient";
 import Login from "../other/Login";
 import moment from "moment";
+import Tarif from "../other/Tarif";
 
 
 export default function Account(props) {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
     let { id } = useParams();
     const [login, setLogin] = useState();
+    const [fullAccsess, setFullAccsess] = useState(false);
     const [discord, setDiscord] = useState(null);
     const [download, setDownload] = useState(null);
     const [announcements, setAnnouncements] = useState([]);
     const [changelogs, setChangelogs] = useState([]);
+    const [pages, setPages] = useState([]);
+    const [tarifs, setTarifs] = useState([]);
+    const [releases, setReleases] = useState([]);
 
 
     useEffect(() => {
@@ -43,6 +47,7 @@ export default function Account(props) {
 
             // Once both return, update the state
             setLogin(loginResult);
+            setFullAccsess(loginResult.user.buyed)
             let disc = {
                 username: null,
                 avatar: null,
@@ -56,13 +61,14 @@ export default function Account(props) {
             if (disc.username || disc.avatar) {
                 setDiscord(disc);
             }
-            console.log(discord);
-            console.log(loginResult);
         });
-
+        fetch(SERVER_URL + '/admin-pages')
+            .then(response => response.json())
+            .then(result => setPages(result.data))
+            .catch(e => console.log(e));
         fetch(SERVER_URL + '/download')
             .then(response => response.json())
-            .then(result => setDownload(result.data[0]))
+            .then(result => setDownload(result.data.find((item) => (item.actual === true))))
             .catch(e => console.log(e));
         fetch(SERVER_URL + '/announcements')
             .then(response => response.json())
@@ -71,6 +77,18 @@ export default function Account(props) {
         fetch(SERVER_URL + '/changelogs')
             .then(response => response.json())
             .then(result => setChangelogs(result.data))
+            .catch(e => console.log(e));
+        fetch(SERVER_URL + '/tarifs')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setTarifs(data.data);
+                console.log(tarifs);
+            });
+        fetch(SERVER_URL + '/releases')
+            .then(response => response.json())
+            .then(result => setReleases(result.data))
             .catch(e => console.log(e));
     }, []);
 
@@ -82,7 +100,7 @@ export default function Account(props) {
         );
     } else if (login)
         return (
-            <Cabinet>
+            <Cabinet pages={!fullAccsess ? pages.filter(item => item.accsess) : pages}>
                 {(id) ?
                     <div className="col-9">
                         <h1 className="h2 stroke text-center">{id}</h1>
@@ -100,9 +118,11 @@ export default function Account(props) {
                                     <div className="admin-block" data-aos="fade-left">
                                         <div className="header">upcoming RELEASES</div>
                                         <div className="body">
-                                            <Relase
-                                                title="Yeezy Boost 350 v2 Veshaya"
-                                            />
+                                            {releases.length > 0 &&
+                                                <Relase
+                                                    item={releases[0]}
+                                                />
+                                            }
                                             {/* <img src={tmp00} alt="" style={{ width: '100%' }} /> */}
                                         </div>
                                     </div>
@@ -120,7 +140,16 @@ export default function Account(props) {
                                     </div>
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="admin-full">
-                                            <img src={tmp01} alt="" />
+                                            <Row className="circles">
+                                                <Col sm={6} >
+                                                    <p><span>active Days</span> Remaining</p>
+                                                    <div className="circle">9</div>
+                                                </Col>
+                                                <Col sm={6}>
+                                                    <p><span>Recent</span> Renewal</p>
+                                                    <div className="circle inactive">N/A</div>
+                                                </Col>
+                                            </Row>
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
@@ -134,7 +163,21 @@ export default function Account(props) {
                                             <Button variant="lblue" size="lg" className="mx-auto">Purchase renewal</Button>
                                         </div>
                                     </div>
+                                    <div className="admin-block" data-aos="fade-left">
+                                        <Row className="justify-content-center">
+                                            {tarifs.map((element) => (
+                                                <Tarif
+                                                    element={element}
+                                                    size="mini"
+                                                    key={element._id}
+                                                />
+                                            )
+                                            )}
+                                        </Row>
+
+                                    </div>
                                 </PerfectScrollbar>
+
                             </div>
                         }
                         {id === 'managment' &&
@@ -199,7 +242,7 @@ export default function Account(props) {
                                                 </div>
                                                 <div className="col-8">
                                                     <div className="label">Current password</div>
-                                                    <input type="password" />
+                                                    <input type="password" placeholder="•••••••••" />
                                                 </div>
                                                 <div className="col-4">
                                                     <Button>Change</Button>
@@ -247,7 +290,9 @@ export default function Account(props) {
                                             <p className="text-center">Welcome to Garson AIO </p>
                                             <p className="text-center">Need help?</p>
                                             <p className="text-center">Visit garson.aio/support to talk with a support member!</p>
-                                            <Button variant="lblue" size="lg" className="mx-auto" onClick={() => window.open(download.url, '_blank')}>Download Garson AIO client</Button>
+                                            {fullAccsess &&
+                                                <Button variant="lblue" size="lg" className="mx-auto" onClick={() => window.open(download.url, '_blank')}>Download Garson AIO client</Button>
+                                            }
                                         </div>
                                     </div>
                                     <div className="admin-block" data-aos="fade-right">
@@ -282,7 +327,7 @@ export default function Account(props) {
                                                 <Button variant="outline-secondary">Read about</Button>
                                             </div>
                                         ))}
-                                        
+
                                     </div>
                                 </div>
                             </PerfectScrollbar>

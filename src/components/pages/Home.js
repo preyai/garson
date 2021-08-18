@@ -12,6 +12,8 @@ import PayForm from "../other/PayForm";
 import PartnersTiles from "../other/PartnersTiles"
 import Activation from "../other/Activation";
 import Register from "../other/Register";
+import Social from "../other/Social";
+import Tarif from "../other/Tarif";
 
 const animateCSS = (element, animation, prefix = 'animate__') =>
     // We create a Promise and return it
@@ -306,17 +308,7 @@ export default function Home(props) {
                                         <p>We are currently out of stock. Follow us on our socials to be the first to know when we restock!</p>
                                     </Col>
                                 </Row>
-                                <Row>
-                                    <Col>
-                                        <Button variant="secondary" size="lg" onClick={() => window.open('https://www.youtube.com/channel/UCDanyqtwHNvd6c5tJJUS51Q')}><span className="icon icon-youtube"></span> YouTube</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button variant="secondary" size="lg" onClick={() => window.open('https://twitter.com/AioGarson')}><span className="icon icon-twitter"></span> Twitter</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button variant="secondary" size="lg" onClick={() => window.open('https://www.instagram.com/garsonaio/')}><span className="icon icon-instagram"></span> Instagram</Button>
-                                    </Col>
-                                </Row>
+                                <Social variant="secondary" />
                             </div>
                         </Col>
                     </Row>
@@ -388,28 +380,11 @@ export default function Home(props) {
                     </div>
                     <Row className="justify-content-center">
                         {tarifs.map((element) => (
-                            <Col sm={6} data-aos='zoom-in' key={element._id} >
-                                <div className="price">
-                                    <div className="title">{element.title}</div>
-                                    <div className="bgr">
-                                        <div className="time">{element.time}</div>
-                                        <p>{element.time_text}</p>
-                                        <div className="sum">{element.price}</div>
-                                        <div className="d-flex align-items-center justify-content-center">
-                                            {element.actions.map((item) => {
-                                                let even;
-
-                                                if (item === 'Enter key to purchase') even = () => setActivateShow(true);
-                                                if (item === 'Purchase') even = () => setPayShow(true);
-                                                return (
-                                                    <Button variant="primary" size="lg" className="mx-2" onClick={even}>{item}</Button>
-                                                )
-                                            }
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </Col>
+                            <Tarif
+                                element={element}
+                                size="full"
+                                key={element._id}
+                            />
                         )
                         )}
                     </Row>
@@ -487,6 +462,9 @@ export default function Home(props) {
                 </Container>
             </section>
             <PayForm
+                price={200}
+                accountId="user@example.com"
+                invoiceId="1234567"
                 show={payShow}
                 onHide={() => setPayShow(false)}
             />

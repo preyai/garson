@@ -8,21 +8,9 @@ import client from "../../feathersClient";
 
 function Aside(props) {
 
-    const [pages, setPages] = useState([
-        { "_id": "60dae8fea914555c2c1a303c", "title": "Releases", "url": "releases", },
-        { "_id": "60dae907a914555c2c1a303d", "title": "Analytics", "url": "analytics", },
-        { "_id": "60dae91da914555c2c1a303e", "title": "Key renewal", "url": "key_renewal", },
-        { "_id": "60dae927a914555c2c1a303f", "title": "Managment", "url": "managment", }
-    ]);
+    const {pages} = props;
 
-    useEffect(() => {
-        const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-        fetch(SERVER_URL + '/admin-pages')
-            .then(response => response.json())
-            .then(result => setPages(result.data))
-            .catch(e => console.log(e));
-
-    }, []);
+    
     return (
         <PerfectScrollbar className="col-auto aside">
             <img src={logo} alt="" className="side-logo" />

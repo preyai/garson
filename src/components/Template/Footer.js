@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Container, Col, Row, Button, Alert } from "react-bootstrap";
 import logo from "../../img/logo.png";
+import Social from "../other/Social";
 
 export default function Footer(props) {
     const host = process.env.REACT_APP_SERVER_URL;
@@ -83,17 +84,7 @@ export default function Footer(props) {
                             <p>We are currently out of stock. Follow us on our socials to be the first to know when we restock!</p>
                         </Col>
                         <Col sm="auto">
-                            <Row>
-                                <Col>
-                                    <Button variant="primary" size="lg"><span className="icon icon-youtube"></span> YouTube</Button>
-                                </Col>
-                                <Col>
-                                    <Button variant="primary" size="lg"><span className="icon icon-twitter"></span> Twitter</Button>
-                                </Col>
-                                <Col>
-                                    <Button variant="primary" size="lg"><span className="icon icon-instagram"></span> Instagram</Button>
-                                </Col>
-                            </Row>
+                            <Social variant="primary" />
                         </Col>
                     </Row>
                 </Container>
@@ -105,7 +96,7 @@ export default function Footer(props) {
                         <a href="/offer">Offer</a>
                         <a href="/terms">Terms and Conditions</a>
                         <a href="/privacy_policies" alt="">User agreement</a>
-                        <a href="/subscription_agreement"> subscription agreement</a>
+                        <a href="/subscription_agreement">Subscription agreement</a>
                         <a href="https://my.cloudpayments.ru/ru/unsubscribe">Unsubscribe</a>
                     </div>
                     <div className="d-flex align-items-center justify-content-between py-2"><div style={{ fontSize: '75%' }}>IP Kopylov A.E.</div><div style={{ fontSize: '75%' }}>INN 771003857215</div><div style={{ fontSize: '75%' }}>Email Contactgarsonaio@gmail.com</div></div>

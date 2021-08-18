@@ -1,81 +1,81 @@
 import { useEffect, useRef, useState } from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-const data = [
-    {
-        name: 'Jan',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Feb',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Mar',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Apr',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'May',
-        Shopify: 6,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Jun',
-        Shopify: 2,
-        Supreme: 1,
-        Adidas: 0,
-    },
-    {
-        name: 'Jul',
-        Shopify: 1,
-        Supreme: 1,
-        Adidas: 0,
-    },
-    {
-        name: 'Aug',
-        Shopify: 4,
-        Supreme: 2,
-        Adidas: 0,
-    },
-    {
-        name: 'Sep',
-        Shopify: 2,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Oct',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Nov',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-    {
-        name: 'Dec',
-        Shopify: 0,
-        Supreme: 0,
-        Adidas: 0,
-    },
-];
+// const data = [
+//     {
+//         name: 'Jan',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Feb',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Mar',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Apr',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'May',
+//         Shopify: 6,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Jun',
+//         Shopify: 2,
+//         Supreme: 1,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Jul',
+//         Shopify: 1,
+//         Supreme: 1,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Aug',
+//         Shopify: 4,
+//         Supreme: 2,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Sep',
+//         Shopify: 2,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Oct',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Nov',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+//     {
+//         name: 'Dec',
+//         Shopify: 0,
+//         Supreme: 0,
+//         Adidas: 0,
+//     },
+// ];
 
-
+const data =[];
 
 function Stat(props) {
     const { value, label } = props;

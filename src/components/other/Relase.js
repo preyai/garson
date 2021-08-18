@@ -1,6 +1,7 @@
 import showIcon from "../../img/show.svg";
 import itemPlch from "../../img/img-09.png";
 import { useEffect, useRef } from "react";
+import moment from "moment";
 
 function Parametr(props) {
     const { label, value, half = false } = props;
@@ -19,7 +20,8 @@ function Parametr(props) {
 }
 
 export default function Relase(props) {
-    const { title } = props;
+    const { item } = props;
+    console.log(item);
     const img = useRef();
     useEffect(() => {
         console.log(img.current.clientWidth);
@@ -29,55 +31,66 @@ export default function Relase(props) {
         <div className="relase">
             <div className="title">
                 <div className="store_circle"></div>
-                <div>{title} </div>
+                <div>{item.title} </div>
                 <div className="show"><img src={showIcon} alt="" /></div>
             </div>
             <div className="row">
                 <div className="col-6">
                     <div className="img-box">
-                        <img src={itemPlch} alt="" ref={img} />
+                        {item.image &&
+                            <img src={item.image.url} alt="" ref={img} />
+                        }
                     </div>
                 </div>
                 <div className="col-6">
                     <div className="row">
-                        <Parametr
-                            label="Release date"
-                            value="21/05/2021"
-                            half={true}
-                        />
-                        <Parametr
-                            label="Style code"
-                            value="e2c2b7"
-                            half={true}
-                        />
-                        <Parametr
-                            label="Colorway"
-                            value="VESHAYA/VESHAYA/VESHAYA"
-                        />
-                        <Parametr
-                            label="Keywords"
-                            value={["+  Yeezy Boost 350 Veshaya", "+  kids infants gs grade school", "- kids infants gs grade school kids infants kids infants "]}
-                        />
-                        
+                        {item.date &&
+                            < Parametr
+                                label="Release date"
+                                value={moment(Date.parse(item.date)).format('L')}
+                                half={true}
+                            />
+                        }
+                        {item.code &&
+                            <Parametr
+                                label="Style code"
+                                value={item.code}
+                                half={true}
+                            />
+                        }
+                        {item.colorway &&
+                            <Parametr
+                                label="Colorway"
+                                value={item.colorway}
+                            />
+                        }
+                        {item.keywords &&
+                            <Parametr
+                                label="Keywords"
+                                value={item.keywords}
+                            />
+                        }
                     </div>
                 </div>
             </div>
-            <div className="row mt-5">
-                <div className="col-6">
-                    <div className="r-price">
-                        <div className="r-price_title">Retail cost</div>
-                        <div className="r-price_value">$220</div>
-                        <div>shipping + tax</div>
+            {item.cost &&
+                <div className="row mt-5">
+                    <div className="col-6">
+                        <div className="r-price">
+                            <div className="r-price_title">Retail cost</div>
+                            <div className="r-price_value">${item.cost}</div>
+                            <div>shipping + tax</div>
+                        </div>
+                    </div>
+                    <div className="col-6">
+                        <div className="r-price light">
+                            <div className="r-price_title">Retail cost</div>
+                            <div className="r-price_value">${item.cost}</div>
+                            <div>shipping + tax</div>
+                        </div>
                     </div>
                 </div>
-                <div className="col-6">
-                <div className="r-price light">
-                        <div className="r-price_title">Retail cost</div>
-                        <div className="r-price_value">$220</div>
-                        <div>shipping + tax</div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     )
 }

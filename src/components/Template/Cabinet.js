@@ -4,7 +4,7 @@ function Cabinet(props) {
     return (
         <div className="container-fluid">
             <div className="cabinetWrap row">
-                <Aside />
+                <Aside pages={props.pages} />
                 {props.children}
             </div>
         </div>
