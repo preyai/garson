@@ -10,7 +10,7 @@ export default function Activation(props) {
     const host = process.env.REACT_APP_SERVER_URL;
 
     const send = () => {
-        fetch(host + '/access-key?key=' + licensedKey)
+        fetch(host + '/access-key/' + licensedKey)
             .then((response) => {
                 return response.json();
             })

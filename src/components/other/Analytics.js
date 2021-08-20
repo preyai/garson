@@ -74,8 +74,8 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 //         Adidas: 0,
 //     },
 // ];
+// 
 
-const data =[];
 
 function Stat(props) {
     const { value, label } = props;
@@ -92,6 +92,14 @@ export default function Analytics(props) {
     const stats = [{ label: 'Checkouts', value: '+18' }, { label: 'Tasks', value: '49' }, { label: 'Awg Chekouts', value: '72.08' }]
     const box = useRef(null);
     const [width, setWidth] = useState(400);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('https://bot.backend.garsonaio.com/GetDataAnalitics.php?login=vlad')
+            .then(response => response.json())
+            .then(result => setData(result))
+            .catch(e => console.log(e));
+    }, [])
     useEffect(() => {
         if (box) {
             setWidth(box.current.offsetWidth)

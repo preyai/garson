@@ -1004,6 +1004,9 @@ footer {
 
 .animated-words {
   display: inline-block;
+  @media (max-width: 600px) {
+    display: block;
+  }
 }
 .circles {
   p {

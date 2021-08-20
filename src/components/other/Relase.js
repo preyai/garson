@@ -24,7 +24,7 @@ export default function Relase(props) {
     console.log(item);
     const img = useRef();
     useEffect(() => {
-        console.log(img.current.clientWidth);
+        // console.log(img.current.clientWidth);
         // img.current.
     });
     return (
@@ -78,14 +78,14 @@ export default function Relase(props) {
                     <div className="col-6">
                         <div className="r-price">
                             <div className="r-price_title">Retail cost</div>
-                            <div className="r-price_value">${item.cost}</div>
+                            <div className="r-price_value">${item.retailcost}</div>
                             <div>shipping + tax</div>
                         </div>
                     </div>
                     <div className="col-6">
                         <div className="r-price light">
                             <div className="r-price_title">Retail cost</div>
-                            <div className="r-price_value">${item.cost}</div>
+                            <div className="r-price_value">${item.relisecost}</div>
                             <div>shipping + tax</div>
                         </div>
                     </div>

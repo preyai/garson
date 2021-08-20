@@ -4,37 +4,37 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 
 export default function PayForm(props) {
-    const {price, accountId, invoiceId} = props;
+    const { price, accountId, invoiceId } = props;
     const [username, setUsername] = useState('');
     const [chek, setChek] = useState(false);
 
     const pay = () => {
         var widget = new window.cp.CloudPayments();
-        widget.pay('auth', // или 'charge'
+        var data = {};
+        data.cloudPayments = {
+            recurrent: {
+                interval: 'Month',
+                period: 1,
+            }
+        }; //создание ежемесячной подписки
+        widget.charge( // или 'charge'
             { //options
-                publicId: 'test_api_00000000000000000000001', //id из личного кабинета
+                publicId: 'pk_e295da34c75b8f3c62e9c1a6ca5ff', //id из личного кабинета
                 description: 'Оплата товаров в example.com', //назначение
-                amount: price, //сумма
+                amount: parseInt(price), //сумма
                 currency: 'USD', //валюта
                 accountId: accountId, //идентификатор плательщика (необязательно)
                 invoiceId: invoiceId, //номер заказа  (необязательно)
                 skin: "mini", //дизайн виджета (необязательно)
-                data: {
-                    myProp: 'myProp value'
-                }
+                data: data
             },
-            {
-                onSuccess: function (options) { // success
-                    //действие при успешной оплате
-                },
-                onFail: function (reason, options) { // fail
-                    //действие при неуспешной оплате
-                },
-                onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-                    //например вызов вашей аналитики Facebook Pixel
-                }
-            }
-        )
+            function (options) { // success
+                //действие при успешной оплате
+            },
+            function (reason, options) { // fail
+                //действие при неуспешной оплате
+            });
+        
     };
 
     return (
@@ -59,7 +59,7 @@ export default function PayForm(props) {
                         <Row className="align-items-center">
                             <Col sm="auto">Price</Col>
                             <Col>
-                                <Form.Control className="price-input" type="text"  placeholder="200$" value={price} disabled />
+                                <Form.Control className="price-input" type="text" placeholder="200$" value={price} disabled />
                             </Col>
                         </Row>
                     </Form.Group>
@@ -76,8 +76,8 @@ export default function PayForm(props) {
                         </Form.Group>
 
                     </div>
-                    
-                        <Button variant="secondary" size="lg" onClick={() => pay()} disabled={!chek}>Pay</Button>
+
+                    <Button variant="secondary" size="lg" onClick={() => pay()} disabled={!chek}>Pay</Button>
 
                 </div>
 

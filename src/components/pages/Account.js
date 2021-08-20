@@ -29,6 +29,7 @@ export default function Account(props) {
     const [pages, setPages] = useState([]);
     const [tarifs, setTarifs] = useState([]);
     const [releases, setReleases] = useState([]);
+    const [home, setHome] = useState({})
 
 
     useEffect(() => {
@@ -90,6 +91,13 @@ export default function Account(props) {
             .then(response => response.json())
             .then(result => setReleases(result.data))
             .catch(e => console.log(e));
+        fetch(SERVER_URL + '/home')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setHome(data.data[0]);
+            });
     }, []);
 
     if (login === undefined) {
@@ -143,12 +151,12 @@ export default function Account(props) {
                                             <Row className="circles">
                                                 <Col sm={6} >
                                                     <p><span>active Days</span> Remaining</p>
-                                                    <div className="circle">9</div>
+                                                    <div className="circle">0</div>
                                                 </Col>
-                                                <Col sm={6}>
+                                                {/* <Col sm={6}>
                                                     <p><span>Recent</span> Renewal</p>
                                                     <div className="circle inactive">N/A</div>
-                                                </Col>
+                                                </Col> */}
                                             </Row>
                                         </div>
                                     </div>
@@ -156,12 +164,18 @@ export default function Account(props) {
                                 <PerfectScrollbar className="col-lg-6 scrolled">
                                     <div className="admin-block" data-aos="fade-left">
                                         <div className="header">Key renewal</div>
-                                        <div className="body">
-                                            <p>Your current expiration date is May 25th 2021.</p>
-                                            <p>Renewal payments do not automatically occur at the end of your expiration!</p>
-                                            <p>You can also purchase a certain number of bot works.</p>
-                                            <Button variant="lblue" size="lg" className="mx-auto">Purchase renewal</Button>
-                                        </div>
+                                        {home.renewal_info ?
+                                            <div className="body">
+                                                {home.renewal_info}
+                                            </div>
+                                            :
+                                            <div className="body">
+                                                <p>Your current expiration date is May 25th 2021.</p>
+                                                <p>Renewal payments do not automatically occur at the end of your expiration!</p>
+                                                <p>You can also purchase a certain number of bot works.</p>
+                                                <Button variant="lblue" size="lg" className="mx-auto">Purchase renewal</Button>
+                                            </div>
+                                        }
                                     </div>
                                     <div className="admin-block" data-aos="fade-left">
                                         <Row className="justify-content-center">

@@ -102,8 +102,10 @@ export default function Home(props) {
         video_2: "",
         market_title: "",
         market_text: "",
+        market_image: null,
         proxy_title: "",
-        proxy_text: ""
+        proxy_text: "",
+        proxy_image:null
     });
     const [retailers, setRetailers] = useState([]);
     const [features, setFeatures] = useState([]);
@@ -423,7 +425,10 @@ export default function Home(props) {
                                 <div dangerouslySetInnerHTML={{ __html: data.market_text }} />
                             </Col>
                             <Col sm={6} data-aos="fade-left">
+                            {data.market_image ?
+                                <img src={data.market_image.url} alt="" /> :
                                 <img src={proxy} alt="" />
+                            }
                             </Col>
                         </Row>
                         :
@@ -448,7 +453,10 @@ export default function Home(props) {
                                 <div dangerouslySetInnerHTML={{ __html: data.proxy_text }} />
                             </Col>
                             <Col sm={6} data-aos="fade-left">
+                            {data.proxy_image ?
+                                <img src={data.proxy_image.url} alt="" /> :
                                 <img src={proxy} alt="" />
+                            }
                             </Col>
                         </Row>
                         :
