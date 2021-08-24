@@ -11,10 +11,14 @@ export default function PayForm(props) {
     const pay = () => {
         var widget = new window.cp.CloudPayments();
         var data = {};
+        var date = new Date(Date.now());
+        date.setMonth(date.getMonth() + 2);
+        console.log(date);
         data.cloudPayments = {
             recurrent: {
                 interval: 'Month',
                 period: 1,
+                StartDate: date
             }
         }; //создание ежемесячной подписки
         widget.charge( // или 'charge'
@@ -25,7 +29,7 @@ export default function PayForm(props) {
                 currency: 'USD', //валюта
                 accountId: accountId, //идентификатор плательщика (необязательно)
                 invoiceId: invoiceId, //номер заказа  (необязательно)
-                skin: "mini", //дизайн виджета (необязательно)
+                skin: "classic", //дизайн виджета (необязательно)
                 data: data
             },
             function (options) { // success
@@ -34,7 +38,7 @@ export default function PayForm(props) {
             function (reason, options) { // fail
                 //действие при неуспешной оплате
             });
-        
+
     };
 
     return (
