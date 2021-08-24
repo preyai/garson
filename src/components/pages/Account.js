@@ -110,11 +110,11 @@ export default function Account(props) {
         return (
             <Cabinet pages={!fullAccsess ? pages.filter(item => item.accsess) : pages}>
                 {(id) ?
-                    <div className="col-9">
+                    <div className="col-12 col-md-9">
                         <h1 className="h2 stroke text-center">{id}</h1>
                         {id === 'releases' &&
                             <div className="row">
-                                <PerfectScrollbar className="col-lg-5 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-5 scrolled">
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">CALENDAR</div>
                                         <div className="body">
@@ -122,7 +122,7 @@ export default function Account(props) {
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
-                                <PerfectScrollbar className="col-lg-7 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-7 scrolled">
                                     <div className="admin-block" data-aos="fade-left">
                                         <div className="header">upcoming RELEASES</div>
                                         <div className="body">
@@ -139,7 +139,7 @@ export default function Account(props) {
                         }
                         {id === 'key_renewal' &&
                             <div className="row">
-                                <PerfectScrollbar className="col-lg-6 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">account info</div>
                                         <div className="body">
@@ -161,7 +161,7 @@ export default function Account(props) {
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
-                                <PerfectScrollbar className="col-lg-6 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
                                     <div className="admin-block" data-aos="fade-left">
                                         <div className="header">Key renewal</div>
                                         {home.renewal_info ?
@@ -196,7 +196,7 @@ export default function Account(props) {
                         }
                         {id === 'managment' &&
                             <div className="row">
-                                <PerfectScrollbar className="col-lg-6 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">Licence control</div>
                                         <div className="body">
@@ -236,7 +236,7 @@ export default function Account(props) {
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
-                                <PerfectScrollbar className="col-lg-6 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
                                     <div className="admin-block" data-aos="fade-left">
                                         <div className="header">My devices</div>
                                         <div className="body">
@@ -270,7 +270,7 @@ export default function Account(props) {
                         }
                         {id === 'analytics' &&
                             <div className="row">
-                                <PerfectScrollbar className="col-lg-8 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-8 scrolled">
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">Checkout Reports</div>
                                         <div className="body">
@@ -280,7 +280,7 @@ export default function Account(props) {
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
-                                <PerfectScrollbar className="col-lg-4 scrolled">
+                                <PerfectScrollbar className="col-12 col-lg-4 scrolled">
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">Recent transactions</div>
                                         <div className="body">
@@ -293,10 +293,10 @@ export default function Account(props) {
                         }
                     </div>
                     :
-                    <div className="col-9">
+                    <div className="col-12 col-md-9">
                         <h1 className="h2 stroke text-center">home</h1>
                         <div className="row">
-                            <div className="col-6 scrolled">
+                            <div className="col-12 col-lg-6 scrolled">
                                 <PerfectScrollbar>
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">Welcome!</div>
@@ -326,7 +326,7 @@ export default function Account(props) {
                                     </div>
                                 </PerfectScrollbar>
                             </div>
-                            <PerfectScrollbar className="col-6 scrolled">
+                            <PerfectScrollbar className="col-12 col-lg-6 scrolled">
 
                                 <div className="admin-block" data-aos="fade-left">
                                     <div className="header">Changelog</div>
