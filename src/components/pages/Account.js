@@ -1,5 +1,7 @@
 import { Button, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 // import coming_soon from "../../img/coming_soon.png";
 import Cabinet from "../Template/Cabinet"
 import Relase from "../other/Relase"
@@ -15,6 +17,7 @@ import client from "../../feathersClient";
 import Login from "../other/Login";
 import moment from "moment";
 import Tarif from "../other/Tarif";
+
 
 
 export default function Account(props) {
@@ -89,7 +92,16 @@ export default function Account(props) {
             });
         fetch(SERVER_URL + '/releases')
             .then(response => response.json())
-            .then(result => setReleases(result.data))
+            .then(result => {
+                setReleases(result.data)
+                let full = result.data
+                for (let item of full) {
+                    fetch(SERVER_URL + '/retailers/' + item.retailer)
+                        .then(response => response.json())
+                        .then(result => item.retailer = result)
+                }
+                console.log(full);
+            })
             .catch(e => console.log(e));
         fetch(SERVER_URL + '/home')
             .then((response) => {
@@ -99,6 +111,26 @@ export default function Account(props) {
                 setHome(data.data[0]);
             });
     }, []);
+
+
+
+    const setCircle = (date) => {
+        const dateobj =
+            releases &&
+            releases.find((x) => {
+                return (
+                    date.getDay() === new Date(x.date).getDay() &&
+                    date.getMonth() === new Date(x.date).getMonth() &&
+                    date.getDate() === new Date(x.date).getDate()
+                );
+            });
+        let style = {}
+        if (dateobj) {
+            style = { backgroundColor: dateobj.retailer.color }
+        }
+        return dateobj ? <div className="calendar-bgr" style={style}></div> : "";
+
+    }
 
     if (login === undefined) {
         return (
@@ -118,7 +150,9 @@ export default function Account(props) {
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">CALENDAR</div>
                                         <div className="body">
-                                            <Calendar />
+                                            <Calendar
+                                                tileContent={({ date }) => setCircle(date)}
+                                            />
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
@@ -127,9 +161,19 @@ export default function Account(props) {
                                         <div className="header">upcoming RELEASES</div>
                                         <div className="body">
                                             {releases.length > 0 &&
-                                                <Relase
-                                                    item={releases[0]}
-                                                />
+                                                <Splide
+                                                    options={{
+                                                        arrows: false
+                                                    }}>
+                                                    {releases.map(item => (
+                                                        <SplideSlide>
+                                                            <Relase
+                                                                item={item}
+                                                            />
+                                                        </SplideSlide>
+                                                    ))}
+                                                </Splide>
+
                                             }
                                             {/* <img src={tmp00} alt="" style={{ width: '100%' }} /> */}
                                         </div>

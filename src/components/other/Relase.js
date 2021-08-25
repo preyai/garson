@@ -21,7 +21,6 @@ function Parametr(props) {
 
 export default function Relase(props) {
     const { item } = props;
-    console.log(item);
     const img = useRef();
     useEffect(() => {
         // console.log(img.current.clientWidth);
@@ -30,7 +29,7 @@ export default function Relase(props) {
     return (
         <div className="relase">
             <div className="title">
-                <div className="store_circle"></div>
+                <div className="store_circle" style={{backgroundColor:item.retailer.color}}></div>
                 <div>{item.title} </div>
                 <div className="show"><img src={showIcon} alt="" /></div>
             </div>

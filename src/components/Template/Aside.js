@@ -13,6 +13,7 @@ function Aside(props) {
     
     return (
         <PerfectScrollbar className="col-auto aside">
+            <div className="burger"></div>
             <img src={logo} alt="" className="side-logo" />
             <nav className="nav flex-column">
                 <a href="/account" className="nav-link"><img src={ico} alt="" />Home</a>

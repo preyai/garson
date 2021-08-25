@@ -1039,3 +1039,29 @@ footer {
     border-color: #38466d;
   }
 }
+.calendar-bgr {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #6584f6;
+  position: absolute;
+  border-radius: 50%;
+}
+.react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  abbr {
+    position: relative;
+    z-index: 2;
+  }
+  &.c-selected {
+    abbr {
+      background-color: #6584f6;
+      border-radius: 50%;
+      padding: 1rem;
+    }
+  }
+}
+.splide__pagination {
+  bottom: -.5em !important; 
+}

@@ -22,14 +22,7 @@ function Transaction(props) {
 export default function Transactions(props) {
     return (
         <PerfectScrollbar className="transactions" >
-            <Transaction />
-            <Transaction />
-            <Transaction />
-            <Transaction />
-            <Transaction />
-            <Transaction />
-            <Transaction />
-            <Transaction />
+            
         </PerfectScrollbar>
     )
 }

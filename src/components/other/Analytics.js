@@ -89,7 +89,7 @@ function Stat(props) {
 
 export default function Analytics(props) {
     const { tags } = props;
-    const stats = [{ label: 'Checkouts', value: '+18' }, { label: 'Tasks', value: '49' }, { label: 'Awg Chekouts', value: '72.08' }]
+    const stats = [{ label: 'Checkouts', value: '0' }, { label: 'Tasks', value: '0' }, { label: 'Awg Chekouts', value: '0' }]
     const box = useRef(null);
     const [width, setWidth] = useState(400);
     const [data, setData] = useState([]);
