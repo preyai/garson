@@ -95,9 +95,13 @@ export default function Analytics(props) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('https://bot.backend.garsonaio.com/GetDataAnalitics.php?login=vlad')
+        fetch('https://bot.backend.garsonaio.com/GetDataAnalitics.php?login=vlad', {
+            method: 'GET'
+        })
             .then(response => response.json())
-            .then(result => setData(result))
+            .then(result => {
+                console.log(result);
+            })
             .catch(e => console.log(e));
     }, [])
     useEffect(() => {

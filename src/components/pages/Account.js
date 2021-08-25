@@ -9,7 +9,7 @@ import Analytics from "../other/Analytics"
 import Transactions from "../other/Transactions"
 import Calendar from 'react-calendar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import tmp00 from '../../img/avatar.png';
+
 import plch from '../../img/cs-plch.png';
 import { useEffect, useState } from "react";
 import AOS from 'aos';
@@ -17,6 +17,7 @@ import client from "../../feathersClient";
 import Login from "../other/Login";
 import moment from "moment";
 import Tarif from "../other/Tarif";
+import Managment from "../other/Managment";
 
 
 
@@ -239,78 +240,9 @@ export default function Account(props) {
                             </div>
                         }
                         {id === 'managment' &&
-                            <div className="row">
-                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">Licence control</div>
-                                        <div className="body">
-                                            <input type="password" className="key-input" />
-                                            <div className="d-flex key-btns">
-                                                <Button>Show</Button>
-                                                <Button>Deactivate</Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">Discord settings</div>
-                                        <div className="body">
-                                            {discord ?
-                                                <div className="d-flex discord-form">
-                                                    <img src={discord.avatar} alt="" />
-                                                    <div className=" c-form">
-                                                        <input type="text" value={"#" + discord.username} />
-
-                                                        <Button disabled>Change</Button>
-
-
-                                                    </div>
-                                                </div>
-                                                :
-                                                <div className="d-flex discord-form">
-                                                    <img src={tmp00} alt="" />
-                                                    <div className=" c-form">
-                                                        <input type="text" placeholder="example#2462" />
-
-                                                        <Button>Change</Button>
-
-
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <div className="header">My devices</div>
-                                        <div className="body">
-                                            <img src={plch} alt="" style={{ width: '100%' }} />
-                                        </div>
-                                    </div>
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <div className="header">Personal info</div>
-                                        <div className="body">
-                                            <div className="row c-form">
-                                                <div className="col-8">
-                                                    <div className="label">Current e-mail:</div>
-                                                    <input type="text" placeholder="exam***@mail.ru" value={login.user.email} />
-                                                </div>
-                                                <div className="col-4">
-                                                    <Button>Change</Button>
-                                                </div>
-                                                <div className="col-8">
-                                                    <div className="label">Current password</div>
-                                                    <input type="password" placeholder="•••••••••" />
-                                                </div>
-                                                <div className="col-4">
-                                                    <Button>Change</Button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-
-                            </div>
+                            <Managment
+                            discord={discord}
+                            login={login} />
                         }
                         {id === 'analytics' &&
                             <div className="row">
