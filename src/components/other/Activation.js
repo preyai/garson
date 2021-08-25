@@ -10,15 +10,19 @@ export default function Activation(props) {
     const host = process.env.REACT_APP_SERVER_URL;
 
     const send = () => {
+        console.log(licensedKey);
         fetch(host + '/access-key/' + licensedKey)
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
-                if (data.total > 0) {
+                if (data) {
                     if (regType === 'discord') {
-                        fetch(host + '/access-key/' + data.data[0]._id, {
-                            method: 'DELETE'
+                        let ndata = data;
+                        ndata.status=false;
+                        fetch(host + '/access-key/' + data._id, {
+                            method: 'PATCH',
+                            FormData: ndata
                         }).then((response) => {
                             document.location.href = host + "/oauth/discord/";
                         });
