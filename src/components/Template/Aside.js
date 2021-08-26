@@ -10,9 +10,15 @@ function Aside(props) {
 
     const {pages} = props;
 
+    const [active, setActive] = useState(false);
     
     return (
-        <PerfectScrollbar className="col-auto aside">
+        <PerfectScrollbar className={"col-auto aside " + (active ? "active" : "")}>
+            <div className="burger" onClick={() =>setActive(!active)}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <img src={logo} alt="" className="side-logo" />
             <nav className="nav flex-column">
                 <a href="/account" className="nav-link"><img src={ico} alt="" />Home</a>

@@ -1,5 +1,7 @@
 import { Button, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 // import coming_soon from "../../img/coming_soon.png";
 import Cabinet from "../Template/Cabinet"
 import Relase from "../other/Relase"
@@ -7,7 +9,7 @@ import Analytics from "../other/Analytics"
 import Transactions from "../other/Transactions"
 import Calendar from 'react-calendar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import tmp00 from '../../img/avatar.png';
+
 import plch from '../../img/cs-plch.png';
 import { useEffect, useState } from "react";
 import AOS from 'aos';
@@ -15,6 +17,8 @@ import client from "../../feathersClient";
 import Login from "../other/Login";
 import moment from "moment";
 import Tarif from "../other/Tarif";
+import Managment from "../other/Managment";
+
 
 
 export default function Account(props) {
@@ -89,7 +93,16 @@ export default function Account(props) {
             });
         fetch(SERVER_URL + '/releases')
             .then(response => response.json())
-            .then(result => setReleases(result.data))
+            .then(result => {
+                setReleases(result.data)
+                let full = result.data
+                for (let item of full) {
+                    fetch(SERVER_URL + '/retailers/' + item.retailer)
+                        .then(response => response.json())
+                        .then(result => item.retailer = result)
+                }
+                console.log(full);
+            })
             .catch(e => console.log(e));
         fetch(SERVER_URL + '/home')
             .then((response) => {
@@ -99,6 +112,26 @@ export default function Account(props) {
                 setHome(data.data[0]);
             });
     }, []);
+
+
+
+    const setCircle = (date) => {
+        const dateobj =
+            releases &&
+            releases.find((x) => {
+                return (
+                    date.getDay() === new Date(x.date).getDay() &&
+                    date.getMonth() === new Date(x.date).getMonth() &&
+                    date.getDate() === new Date(x.date).getDate()
+                );
+            });
+        let style = {}
+        if (dateobj) {
+            style = { backgroundColor: dateobj.retailer.color }
+        }
+        return dateobj ? <div className="calendar-bgr" style={style}></div> : "";
+
+    }
 
     if (login === undefined) {
         return (
@@ -118,7 +151,9 @@ export default function Account(props) {
                                     <div className="admin-block" data-aos="fade-right">
                                         <div className="header">CALENDAR</div>
                                         <div className="body">
-                                            <Calendar />
+                                            <Calendar
+                                                tileContent={({ date }) => setCircle(date)}
+                                            />
                                         </div>
                                     </div>
                                 </PerfectScrollbar>
@@ -127,9 +162,19 @@ export default function Account(props) {
                                         <div className="header">upcoming RELEASES</div>
                                         <div className="body">
                                             {releases.length > 0 &&
-                                                <Relase
-                                                    item={releases[0]}
-                                                />
+                                                <Splide
+                                                    options={{
+                                                        arrows: false
+                                                    }}>
+                                                    {releases.map(item => (
+                                                        <SplideSlide>
+                                                            <Relase
+                                                                item={item}
+                                                            />
+                                                        </SplideSlide>
+                                                    ))}
+                                                </Splide>
+
                                             }
                                             {/* <img src={tmp00} alt="" style={{ width: '100%' }} /> */}
                                         </div>
@@ -195,78 +240,9 @@ export default function Account(props) {
                             </div>
                         }
                         {id === 'managment' &&
-                            <div className="row">
-                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">Licence control</div>
-                                        <div className="body">
-                                            <input type="password" className="key-input" />
-                                            <div className="d-flex key-btns">
-                                                <Button>Show</Button>
-                                                <Button>Deactivate</Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">Discord settings</div>
-                                        <div className="body">
-                                            {discord ?
-                                                <div className="d-flex discord-form">
-                                                    <img src={discord.avatar} alt="" />
-                                                    <div className=" c-form">
-                                                        <input type="text" value={"#" + discord.username} />
-
-                                                        <Button disabled>Change</Button>
-
-
-                                                    </div>
-                                                </div>
-                                                :
-                                                <div className="d-flex discord-form">
-                                                    <img src={tmp00} alt="" />
-                                                    <div className=" c-form">
-                                                        <input type="text" placeholder="example#2462" />
-
-                                                        <Button>Change</Button>
-
-
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <div className="header">My devices</div>
-                                        <div className="body">
-                                            <img src={plch} alt="" style={{ width: '100%' }} />
-                                        </div>
-                                    </div>
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <div className="header">Personal info</div>
-                                        <div className="body">
-                                            <div className="row c-form">
-                                                <div className="col-8">
-                                                    <div className="label">Current e-mail:</div>
-                                                    <input type="text" placeholder="exam***@mail.ru" value={login.user.email} />
-                                                </div>
-                                                <div className="col-4">
-                                                    <Button>Change</Button>
-                                                </div>
-                                                <div className="col-8">
-                                                    <div className="label">Current password</div>
-                                                    <input type="password" placeholder="•••••••••" />
-                                                </div>
-                                                <div className="col-4">
-                                                    <Button>Change</Button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-
-                            </div>
+                            <Managment
+                            discord={discord}
+                            login={login} />
                         }
                         {id === 'analytics' &&
                             <div className="row">
