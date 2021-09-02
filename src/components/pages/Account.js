@@ -1,23 +1,19 @@
-import { Button, Col, Row } from "react-bootstrap";
+
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import { Button, Col, Row } from "react-bootstrap";
 // import coming_soon from "../../img/coming_soon.png";
 import Cabinet from "../Template/Cabinet"
-import Relase from "../other/Relase"
 import Analytics from "../other/Analytics"
 import Transactions from "../other/Transactions"
-import Calendar from 'react-calendar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
-import plch from '../../img/cs-plch.png';
-import { useEffect, useState } from "react";
 import AOS from 'aos';
 import client from "../../feathersClient";
 import Login from "../other/Login";
 import moment from "moment";
-import Tarif from "../other/Tarif";
 import Managment from "../other/Managment";
+import Releases from "../other/Releases";
+import KeyRenewal from "../other/KeyRenewal";
 
 
 
@@ -33,7 +29,6 @@ export default function Account(props) {
     const [pages, setPages] = useState([]);
     const [tarifs, setTarifs] = useState([]);
     const [releases, setReleases] = useState([]);
-    const [home, setHome] = useState({})
 
 
     useEffect(() => {
@@ -104,34 +99,11 @@ export default function Account(props) {
                 console.log(full);
             })
             .catch(e => console.log(e));
-        fetch(SERVER_URL + '/home')
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setHome(data.data[0]);
-            });
     }, []);
 
 
 
-    const setCircle = (date) => {
-        const dateobj =
-            releases &&
-            releases.find((x) => {
-                return (
-                    date.getDay() === new Date(x.date).getDay() &&
-                    date.getMonth() === new Date(x.date).getMonth() &&
-                    date.getDate() === new Date(x.date).getDate()
-                );
-            });
-        let style = {}
-        if (dateobj) {
-            style = { backgroundColor: dateobj.retailer.color }
-        }
-        return dateobj ? <div className="calendar-bgr" style={style}></div> : "";
 
-    }
 
     if (login === undefined) {
         return (
@@ -146,103 +118,17 @@ export default function Account(props) {
                     <div className="col-12 col-md-9">
                         <h1 className="h2 stroke text-center">{id}</h1>
                         {id === 'releases' &&
-                            <div className="row">
-                                <PerfectScrollbar className="col-12 col-lg-5 scrolled">
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">CALENDAR</div>
-                                        <div className="body">
-                                            <Calendar
-                                                tileContent={({ date }) => setCircle(date)}
-                                            />
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-                                <PerfectScrollbar className="col-12 col-lg-7 scrolled">
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <div className="header">upcoming RELEASES</div>
-                                        <div className="body">
-                                            {releases.length > 0 &&
-                                                <Splide
-                                                    options={{
-                                                        arrows: false
-                                                    }}>
-                                                    {releases.map(item => (
-                                                        <SplideSlide>
-                                                            <Relase
-                                                                item={item}
-                                                            />
-                                                        </SplideSlide>
-                                                    ))}
-                                                </Splide>
-
-                                            }
-                                            {/* <img src={tmp00} alt="" style={{ width: '100%' }} /> */}
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-                            </div>
+                            <Releases releases={releases} />
                         }
                         {id === 'key_renewal' &&
-                            <div className="row">
-                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">account info</div>
-                                        <div className="body">
-                                            <img src={plch} alt="" style={{ width: '100%' }} />
-                                        </div>
-                                    </div>
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="admin-full">
-                                            <Row className="circles">
-                                                <Col sm={6} >
-                                                    <p><span>active Days</span> Remaining</p>
-                                                    <div className="circle">0</div>
-                                                </Col>
-                                                {/* <Col sm={6}>
-                                                    <p><span>Recent</span> Renewal</p>
-                                                    <div className="circle inactive">N/A</div>
-                                                </Col> */}
-                                            </Row>
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-                                <PerfectScrollbar className="col-12 col-lg-6 scrolled">
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <div className="header">Key renewal</div>
-                                        {home.renewal_info ?
-                                            <div className="body">
-                                                {home.renewal_info}
-                                            </div>
-                                            :
-                                            <div className="body">
-                                                <p>Your current expiration date is May 25th 2021.</p>
-                                                <p>Renewal payments do not automatically occur at the end of your expiration!</p>
-                                                <p>You can also purchase a certain number of bot works.</p>
-                                                <Button variant="lblue" size="lg" className="mx-auto">Purchase renewal</Button>
-                                            </div>
-                                        }
-                                    </div>
-                                    <div className="admin-block" data-aos="fade-left">
-                                        <Row className="justify-content-center">
-                                            {tarifs.map((element) => (
-                                                <Tarif
-                                                    element={element}
-                                                    size="mini"
-                                                    key={element._id}
-                                                />
-                                            )
-                                            )}
-                                        </Row>
-
-                                    </div>
-                                </PerfectScrollbar>
-
-                            </div>
+                            <KeyRenewal
+                                tarifs={tarifs}
+                            />
                         }
                         {id === 'managment' &&
                             <Managment
-                            discord={discord}
-                            login={login} />
+                                discord={discord}
+                                login={login} />
                         }
                         {id === 'analytics' &&
                             <div className="row">

@@ -149,7 +149,7 @@ export default function Home(props) {
                 }
                 setMeta(_meta);
             });
-        fetch(host + '/retailers')
+        fetch(host + '/retailers?$limit=99')
             .then((response) => {
                 return response.json();
             })

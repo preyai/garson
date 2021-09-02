@@ -13,7 +13,6 @@ export default function PayForm(props) {
         var data = {};
         var date = new Date(Date.now());
         date.setMonth(date.getMonth() + 2);
-        console.log(date);
         data.cloudPayments = {
             recurrent: {
                 interval: 'Month',
@@ -21,7 +20,7 @@ export default function PayForm(props) {
                 StartDate: date
             }
         }; //создание ежемесячной подписки
-        widget.charge( // или 'charge'
+        widget.charge(
             { //options
                 publicId: 'pk_e295da34c75b8f3c62e9c1a6ca5ff', //id из личного кабинета
                 description: 'Оплата товаров в example.com', //назначение
@@ -33,7 +32,7 @@ export default function PayForm(props) {
                 data: data
             },
             function (options) { // success
-                //действие при успешной оплате
+                console.log(options);
             },
             function (reason, options) { // fail
                 //действие при неуспешной оплате

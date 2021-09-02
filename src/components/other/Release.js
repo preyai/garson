@@ -19,7 +19,7 @@ function Parametr(props) {
     )
 }
 
-export default function Relase(props) {
+export default function Release(props) {
     const { item } = props;
     const img = useRef();
     useEffect(() => {

@@ -96,7 +96,7 @@ export default function Analytics(props) {
 
     useEffect(() => {
         fetch('https://bot.backend.garsonaio.com/GetDataAnalitics.php?login=vlad', {
-            method: 'GET'
+            method: 'GET',
         })
             .then(response => response.json())
             .then(result => {

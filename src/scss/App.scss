@@ -529,10 +529,10 @@ $ul-colors: #ff2817, #39df88, #f8ca39, #2f99c7, #818cb8;
     }
   }
   @include media-breakpoint-down(md) {
-    position: absolute;
+    position: fixed;
     transform: translateX(-100%);
     z-index: 91;
-    overflow-x: visible !important;
+    overflow: visible !important;
     .nav {
       flex-wrap: nowrap;
     }
