@@ -14,6 +14,7 @@ import moment from "moment";
 import Managment from "../other/Managment";
 import Releases from "../other/Releases";
 import KeyRenewal from "../other/KeyRenewal";
+import Statistic from "../other/Statistic";
 
 
 
@@ -131,27 +132,7 @@ export default function Account(props) {
                                 login={login} />
                         }
                         {id === 'analytics' &&
-                            <div className="row">
-                                <PerfectScrollbar className="col-12 col-lg-8 scrolled">
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">Checkout Reports</div>
-                                        <div className="body">
-                                            <Analytics
-                                                tags={[{ label: 'Shopify', color: "#0cbb90" }, { label: 'Adidas', color: "#6584f6" }, { label: 'Supreme', color: "#ab55bd" }, { label: 'Footsites', color: "#ca5656" }]}
-                                            />
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-                                <PerfectScrollbar className="col-12 col-lg-4 scrolled">
-                                    <div className="admin-block" data-aos="fade-right">
-                                        <div className="header">Recent transactions</div>
-                                        <div className="body">
-                                            <Transactions />
-                                        </div>
-                                    </div>
-                                </PerfectScrollbar>
-
-                            </div>
+                            <Statistic />
                         }
                     </div>
                     :
