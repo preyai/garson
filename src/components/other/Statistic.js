@@ -1,23 +1,36 @@
 import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import client from '../../feathersClient';
 import Analytics from "./Analytics";
 import Transactions from "./Transactions";
 
 export default function Statistic(props) {
 
     const [data, setData] = useState({
-        chekouts: []
+        chekouts: [],
+
     });
+    const [accessKey, setAccessKey] = useState('');
 
     useEffect(() => {
-        fetch('https://bot.backend.garsonaio.com/GetDataAnalitics.php?login=vlad2', {
-            method: 'GET',
-        })
-            .then(response => response.json())
+        client.get('authentication')
             .then(result => {
-                setData(result)
+                client.service("licensekey").find({ query: { user: result.user._id } }).then(result => {
+                    const _accessKey = result.data[0]
+                    setAccessKey(_accessKey);
+                    fetch(`https://bot.backend.garsonaio.com/GetDataAnalitics.php?login=${_accessKey.login}`, {
+                        method: 'GET',
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.amount_checkouts) {
+                                setData(result)
+                            }
+                        })
+                        .catch(e => console.log(e));
+                })
             })
-            .catch(e => console.log(e));
+
     }, [])
 
     return (

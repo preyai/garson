@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import client from "../../feathersClient";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { useHistory } from "react-router";
 
 
 
@@ -11,7 +12,8 @@ function Paypal(props) {
     const { price, accountId, invoiceId, login } = props;
 
     const transactionsService = client.service('transactions');
-
+    let history = useHistory();
+    
     return (
         <Modal
             {...props}
@@ -23,11 +25,11 @@ function Paypal(props) {
 
             </Modal.Header>
             <Modal.Body>
-                <PayPalScriptProvider options={{ "client-id": "Afd3ZVcU1cXojZjpgwA1dwqB4qa6zZ4L2yMPjlrCGK1qleE6kSSVE7OyKzpLrBn9IMrp8fJZdSFzTxdl" }}>
+                <PayPalScriptProvider options={{ "client-id": "Ab8rmrAprMrXFih8zgIwJgNqK8ry-7SVhDp8oyV1C545vKfb7b4eqhnZe_19gQlPnQ8kzllBKi-zJCM6" }}>
                     <PayPalButtons
-                        createOrder={(data, actions) => {
+                        createOrder={async (data, actions) =>  {
                             console.log(data);
-                            const re = actions.order.create({
+                            const re = await actions.order.create({
                                 purchase_units: [
                                     {
                                         amount: {
@@ -37,9 +39,10 @@ function Paypal(props) {
                                 ],
 
                             });
+                            console.log(re);
                             transactionsService.create({
                                 user: login._id,
-                                transactionId: re.value,
+                                transactionId: re,
                                 amount: price,
                                 status: false
                             });
@@ -49,7 +52,7 @@ function Paypal(props) {
                             console.log(data);
                             return actions.order.capture().then(function (details) {
                                 // This function shows a transaction success message to your buyer.
-                                alert('Transaction completed by ' + details.payer.name.given_name);
+                                history.push('/account/managment')
                             });
                         }}
                     />

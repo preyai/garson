@@ -17,6 +17,7 @@ export default function Managment(props) {
     const [emailChanged, setEmailChanged] = useState(false)
     const host = process.env.REACT_APP_SERVER_URL;
     const userService = client.service("users");
+    const [accessKey, setAccessKey] = useState('');
 
     useEffect(() => {
         client.get('authentication')
@@ -24,7 +25,10 @@ export default function Managment(props) {
                 setAccessToken(result.accessToken);
                 setUserId(result.user._id);
                 setEmail(result.user.email);
-            });
+                client.service("licensekey").find({query:{ user: result.user._id }}).then( result => {
+                    setAccessKey(result.data[0].key);
+                })
+            })
     }, [])
 
     const deactivate = () => {
@@ -51,7 +55,7 @@ export default function Managment(props) {
                 <div className="admin-block" data-aos="fade-right">
                     <div className="header">Licence control</div>
                     <div className="body">
-                        <input type={show ? "text" : "password"} className="key-input" value="THU5-S3B5-QF24-NB35" />
+                        <input type={show ? "text" : "password"} className="key-input" value={accessKey} />
                         <div className="d-flex key-btns">
                             <Button onClick={() => setShow(!show)}>Show</Button>
                             <Button onClick={deactivate}>Deactivate</Button>

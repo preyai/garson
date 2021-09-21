@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import client from "../../feathersClient";
 import plch from '../../img/cs-plch.png';
 import Tarif from "../other/Tarif";
 
 export default function KeyRenewal(props) {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-    const {tarifs} = props;
+    const { tarifs } = props;
     const [home, setHome] = useState({});
-
+    const [accessKey, setAccessKey] = useState('');
+    const [days, setDays] = useState(0);
     useEffect(() => {
         fetch(SERVER_URL + '/home')
             .then((response) => {
@@ -17,6 +19,20 @@ export default function KeyRenewal(props) {
             .then((data) => {
                 setHome(data.data[0]);
             });
+        client.get('authentication')
+            .then(result => {
+                client.service("licensekey").find({ query: { user: result.user._id } }).then(result => {
+                    const _accessKey = result.data[0]
+                    setAccessKey(_accessKey);
+                    let end = new Date(_accessKey.startdate);
+                    let now = new Date();
+                    end.setMonth(end.getMonth() + _accessKey.month)
+                    let remaining = end - now;
+                    remaining /= 8.64e+7  
+
+                    setDays(Math.floor(remaining));
+                })
+            })
     }, []);
 
     return (
@@ -33,7 +49,7 @@ export default function KeyRenewal(props) {
                         <Row className="circles">
                             <Col sm={6} >
                                 <p><span>active Days</span> Remaining</p>
-                                <div className="circle">0</div>
+                                <div className="circle">{days}</div>
                             </Col>
                             {/* <Col sm={6}>
                                 <p><span>Recent</span> Renewal</p>
